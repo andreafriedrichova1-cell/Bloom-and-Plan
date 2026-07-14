@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bloom & Plan — Aesthetic Digital Planners & Templates</title>
+  <meta name="description" content="Download beautiful aesthetic digital planners, wedding organizers, Notion templates and self-care journals. Instant download. Made with love." />
+  <meta name="keywords" content="digital planner, wedding planner, aesthetic planner, notion template, daily planner, habit tracker, printable journal" />
+  <meta property="og:title" content="Bloom & Plan — Aesthetic Digital Products" />
+  <meta property="og:description" content="Beautiful digital planners, wedding organizers & Notion templates. Instant download." />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>" />
+</head>
+<body>
+
+  <!-- ========================================================
+       NAVIGATION
+       ======================================================== -->
+  <nav id="main-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">Bloom <span>&</span> Plan</a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="#about" id="nav-about">Our Story</a></li>
+        <li><a href="#shop"  id="nav-shop">Shop</a></li>
+        <li><a href="#featured" id="nav-bundle">Bundles</a></li>
+        <li><a href="#testimonials" id="nav-reviews">Reviews</a></li>
+        <li><a href="#newsletter" id="nav-newsletter">Free Gift</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="cart-btn" aria-label="Open shopping cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+          <span id="cart-count">0</span>
+        </button>
+        <button class="hamburger" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========================================================
+       HERO
+       ======================================================== -->
+  <section id="hero" aria-label="Hero banner">
+    <div class="hero-bg" role="img" aria-label="Elegant planner flat lay"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">Digital Downloads · Instant Access</div>
+
+      <h1 class="hero-title">
+        Plan your life,<br>
+        <em>beautifully.</em>
+      </h1>
+
+      <p class="hero-desc">
+        Aesthetic digital planners, wedding organizers, Notion templates & self-care journals — crafted for women who want a life that feels as good as it looks.
+      </p>
+
+      <div class="hero-cta">
+        <a href="#shop" class="btn-primary" id="hero-shop-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          Shop the Collection
+        </a>
+        <a href="#featured" class="btn-outline" id="hero-bundle-btn">View Bundles</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       MARQUEE STRIP
+       ======================================================== -->
+  <div class="marquee-strip" aria-hidden="true">
+    <div class="marquee-inner">
+      <!-- Doubled for seamless loop -->
+      <div class="marquee-text">
+        <span>Instant Download</span><span class="marquee-dot"></span>
+        <span>Wedding Planners</span><span class="marquee-dot"></span>
+        <span>Daily Planners</span><span class="marquee-dot"></span>
+        <span>Notion Templates</span><span class="marquee-dot"></span>
+        <span>Vision Board Kits</span><span class="marquee-dot"></span>
+        <span>Gratitude Journals</span><span class="marquee-dot"></span>
+        <span>Habit Trackers</span><span class="marquee-dot"></span>
+        <span>Self-Care Planners</span><span class="marquee-dot"></span>
+        <span>Instant Download</span><span class="marquee-dot"></span>
+        <span>Wedding Planners</span><span class="marquee-dot"></span>
+        <span>Daily Planners</span><span class="marquee-dot"></span>
+        <span>Notion Templates</span><span class="marquee-dot"></span>
+        <span>Vision Board Kits</span><span class="marquee-dot"></span>
+        <span>Gratitude Journals</span><span class="marquee-dot"></span>
+        <span>Habit Trackers</span><span class="marquee-dot"></span>
+        <span>Self-Care Planners</span><span class="marquee-dot"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       ABOUT / BRAND STORY
+       ======================================================== -->
+  <section id="about" aria-labelledby="about-title">
+    <div class="container">
+      <div class="about-inner">
+
+        <div class="about-image-wrap fade-up">
+          <img src="images/daily-planner.jpg" alt="Beautiful planner flat lay" loading="lazy" />
+          <div class="about-badge">
+            <span class="about-badge-num">500+</span>
+            <span class="about-badge-text">Happy customers</span>
+          </div>
+        </div>
+
+        <div class="about-content fade-up">
+          <div class="section-label">Our Story</div>
+          <h2 id="about-title" class="section-title">
+            Designed for the<br>
+            <em style="font-style:italic; color:var(--rose)">intentional woman</em>
+          </h2>
+
+          <p>
+            Bloom & Plan was born from a simple belief — that beautiful tools inspire beautiful habits. Every product is designed with obsessive attention to detail, so planning your days, your wedding, or your dreams feels like a ritual, not a chore.
+          </p>
+          <p>
+            Each template is crafted by our small team of designers who are passionate about aesthetics, mindfulness and helping women create lives they're truly in love with.
+          </p>
+
+          <div class="about-features">
+            <div class="about-feature">
+              <div class="about-feature-icon"></div>
+              <span>Instant download — access your files in seconds</span>
+            </div>
+            <div class="about-feature">
+              <div class="about-feature-icon"></div>
+              <span>Use forever — print as many copies as you like</span>
+            </div>
+            <div class="about-feature">
+              <div class="about-feature-icon"></div>
+              <span>Thoughtfully designed with love & intention</span>
+            </div>
+            <div class="about-feature">
+              <div class="about-feature-icon"></div>
+              <span>Eco-friendly — no paper waste until you choose to print</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SHOP
+       ======================================================== -->
+  <section id="shop" aria-labelledby="shop-title">
+    <div class="container">
+
+      <div class="shop-header fade-up">
+        <div class="section-label">The Collection</div>
+        <h2 id="shop-title" class="section-title">Shop Digital Products</h2>
+        <p class="section-subtitle">Beautifully designed templates and planners for every corner of your life.</p>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="category-tabs fade-up" role="tablist" aria-label="Filter products by category">
+        <button class="cat-tab active" data-cat="all" id="tab-all" role="tab" aria-selected="true">All</button>
+        <button class="cat-tab" data-cat="wedding" id="tab-wedding" role="tab" aria-selected="false">💍 Wedding</button>
+        <button class="cat-tab" data-cat="daily" id="tab-daily" role="tab" aria-selected="false">📅 Daily Life</button>
+        <button class="cat-tab" data-cat="mindset" id="tab-mindset" role="tab" aria-selected="false">🌿 Mind & Goals</button>
+        <button class="cat-tab" data-cat="notion" id="tab-notion" role="tab" aria-selected="false">⚡ Notion</button>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="products-grid" id="products-grid" role="list"></div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       FEATURED BUNDLE
+       ======================================================== -->
+  <section id="featured" aria-labelledby="featured-title">
+    <div class="container">
+      <div class="featured-inner">
+
+        <div class="featured-content fade-up">
+          <div class="section-label">Best Value</div>
+          <h2 id="featured-title" class="section-title">
+            The Wedding<br>Collection Bundle
+          </h2>
+          <p>
+            Everything you need to plan your dream wedding, all in one gorgeous bundle. Our most popular combination — the Ultimate Wedding Planner paired with the Daily Planner to keep you organised from engagement to honeymoon.
+          </p>
+
+          <div class="bundle-items">
+            <div class="bundle-item">Ultimate Wedding Planner (120 pages)</div>
+            <div class="bundle-item">Aesthetic Daily Planner (365 days)</div>
+            <div class="bundle-item">Vendor contact & budget tracker</div>
+            <div class="bundle-item">Guest list & seating chart tool</div>
+            <div class="bundle-item">Wedding day timeline template</div>
+            <div class="bundle-item">Printable in A4 & US Letter</div>
+          </div>
+
+          <div class="featured-price-block">
+            <div>
+              <div class="featured-price">$35</div>
+              <div class="featured-price-orig">Individual price: $41</div>
+            </div>
+            <button class="btn-primary" id="bundle-add-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+              Add Bundle to Cart
+            </button>
+          </div>
+        </div>
+
+        <div class="featured-images fade-up">
+          <span class="save-tag">Save 15% 🎉</span>
+          <div class="featured-img-stack">
+            <img src="images/wedding-planner.jpg" alt="Wedding Planner" loading="lazy" />
+            <img src="images/daily-planner.jpg" alt="Daily Planner" loading="lazy" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       TESTIMONIALS
+       ======================================================== -->
+  <section id="testimonials" aria-labelledby="testimonials-title">
+    <div class="container">
+      <div class="testimonials-header fade-up">
+        <div class="section-label">Customer Love</div>
+        <h2 id="testimonials-title" class="section-title">What our customers say</h2>
+        <p class="section-subtitle">Join hundreds of women living more beautifully & intentionally.</p>
+      </div>
+
+      <div class="testimonials-grid">
+
+        <div class="testimonial-card fade-up">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            "This wedding planner literally saved my sanity. It's so gorgeous I almost didn't want to write in it — but I'm SO glad I did. Everything was organized perfectly on our big day."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">👰</div>
+            <div>
+              <div class="testimonial-name">Sofia M.</div>
+              <div class="testimonial-product">Ultimate Wedding Planner</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card fade-up">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            "I've tried dozens of daily planners and this is the first one that has actually stuck. The morning ritual section changed my entire morning routine. I'm obsessed."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">☀️</div>
+            <div>
+              <div class="testimonial-name">Aria K.</div>
+              <div class="testimonial-product">Aesthetic Daily Planner</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card fade-up">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            "The Notion Life OS template is incredible. I've been a Notion user for years but never had anything this beautiful or well-structured. The setup tutorial made it so easy."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">💻</div>
+            <div>
+              <div class="testimonial-name">Camille R.</div>
+              <div class="testimonial-product">Life OS Notion Dashboard</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card fade-up">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            "The vision board kit is stunning. I had the most magical Sunday afternoon cutting out the affirmation cards and setting my goals. It felt like therapy. 10/10 recommend!"
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">✨</div>
+            <div>
+              <div class="testimonial-name">Luna P.</div>
+              <div class="testimonial-product">Vision Board Kit</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card fade-up">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            "The gratitude journal is the most beautiful journal I've ever owned. I print mine monthly and it's become the highlight of my evening routine. Such a cozy, intentional practice."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">🕯️</div>
+            <div>
+              <div class="testimonial-name">Emma T.</div>
+              <div class="testimonial-product">Gratitude & Self-Care Journal</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card fade-up">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">
+            "I bought the habit tracker 3 months ago and I've actually kept up my habits consistently for the first time ever. The design makes it so satisfying to fill in. Worth every penny."
+          </p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">🌿</div>
+            <div>
+              <div class="testimonial-name">Jade W.</div>
+              <div class="testimonial-product">Habit & Wellness Tracker</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       NEWSLETTER
+       ======================================================== -->
+  <section id="newsletter" aria-labelledby="newsletter-title">
+    <div class="container">
+      <div class="newsletter-inner">
+        <div class="section-label">Free Gift Inside</div>
+        <h2 id="newsletter-title" class="section-title">Get a free planner<br>when you join</h2>
+        <p>Subscribe and instantly receive our bestselling Mini Morning Ritual Kit — a $12 value, completely free for new members.</p>
+
+        <form class="newsletter-form" id="newsletter-form" novalidate>
+          <input
+            type="email"
+            id="newsletter-email"
+            name="email"
+            placeholder="your@email.com"
+            autocomplete="email"
+            aria-label="Email address"
+            required
+          />
+          <button type="submit" id="newsletter-submit">Get My Free Gift</button>
+        </form>
+
+        <div class="newsletter-perks">
+          <div class="newsletter-perk"><span>🎁</span><span>Free planner instantly</span></div>
+          <div class="newsletter-perk"><span>💌</span><span>Weekly inspiration</span></div>
+          <div class="newsletter-perk"><span>🏷️</span><span>Exclusive discounts</span></div>
+          <div class="newsletter-perk"><span>🔒</span><span>No spam, unsubscribe any time</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       FOOTER
+       ======================================================== -->
+  <footer role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+
+        <div class="footer-brand">
+          <a href="#hero" class="nav-logo">Bloom <span style="color:var(--rose)">&</span> Plan</a>
+          <p>Beautiful digital tools for women building intentional, gorgeous lives. Made with love, delivered instantly.</p>
+          <div class="footer-social">
+            <a href="#" class="footer-social-link" aria-label="Instagram">📸</a>
+            <a href="#" class="footer-social-link" aria-label="Pinterest">📌</a>
+            <a href="#" class="footer-social-link" aria-label="TikTok">🎵</a>
+            <a href="#" class="footer-social-link" aria-label="Email">✉️</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="#shop" id="footer-all-products">All Products</a></li>
+            <li><a href="#shop" id="footer-wedding">Wedding Planners</a></li>
+            <li><a href="#shop" id="footer-daily">Daily Planners</a></li>
+            <li><a href="#shop" id="footer-notion">Notion Templates</a></li>
+            <li><a href="#featured" id="footer-bundles">Bundles</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Help</h4>
+          <ul>
+            <li><a href="#" id="footer-faq">FAQ</a></li>
+            <li><a href="#" id="footer-download-help">Download Guide</a></li>
+            <li><a href="#" id="footer-contact">Contact Us</a></li>
+            <li><a href="#" id="footer-returns">Refund Policy</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#about" id="footer-about">Our Story</a></li>
+            <li><a href="#" id="footer-affiliates">Affiliates</a></li>
+            <li><a href="#" id="footer-privacy">Privacy Policy</a></li>
+            <li><a href="#" id="footer-terms">Terms of Use</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Bloom & Plan. All rights reserved. All digital products are for personal use only.</p>
+        <div class="footer-payments">
+          <span class="payment-badge">Visa</span>
+          <span class="payment-badge">Mastercard</span>
+          <span class="payment-badge">PayPal</span>
+          <span class="payment-badge">Stripe</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================
+       PRODUCT MODAL
+       ======================================================== -->
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-label="Product details">
+    <div class="modal-box">
+      <div class="modal-image">
+        <button class="modal-close" id="modal-close-btn" aria-label="Close product modal">✕</button>
+        <img id="modal-img" src="" alt="" loading="lazy" />
+      </div>
+
+      <div class="modal-content">
+        <div class="modal-category" id="modal-cat"></div>
+        <h2 class="modal-title" id="modal-title"></h2>
+        <div class="modal-rating" id="modal-rating"></div>
+        <div class="modal-price" id="modal-price"></div>
+        <p class="modal-desc" id="modal-desc"></p>
+
+        <div class="modal-includes">
+          <h4>What's Included</h4>
+          <ul id="modal-includes-list"></ul>
+        </div>
+
+        <div class="modal-format" id="modal-formats"></div>
+
+        <button class="modal-add-btn" id="modal-add-to-cart">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          Add to Cart — Download Instantly
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       CART SIDEBAR
+       ======================================================== -->
+  <div class="cart-overlay" id="cart-overlay" aria-hidden="true"></div>
+
+  <aside class="cart-sidebar" id="cart-sidebar" role="complementary" aria-label="Shopping cart">
+    <div class="cart-header">
+      <h2>Your Cart</h2>
+      <button class="cart-close" id="cart-close" aria-label="Close cart">✕</button>
+    </div>
+
+    <div class="cart-items" id="cart-items" role="list"></div>
+
+    <div class="cart-empty" id="cart-empty" style="display:flex">
+      <div class="cart-empty-icon">🛍️</div>
+      <h3>Your cart is empty</h3>
+      <p>Add some beautiful products to get started!</p>
+      <a href="#shop" class="btn-outline" id="cart-browse-btn" style="margin-top:0.5rem">Browse Products</a>
+    </div>
+
+    <div class="cart-footer" id="cart-footer" style="display:none">
+      <div class="cart-total">
+        <span>Total</span>
+        <span class="cart-total-amount" id="cart-total-amount">$0</span>
+      </div>
+      <button class="cart-checkout-btn" id="cart-checkout">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+        Proceed to Checkout
+      </button>
+      <p class="cart-continue" id="cart-continue">← Continue shopping</p>
+    </div>
+  </aside>
+
+  <!-- ========================================================
+       TOAST NOTIFICATION
+       ======================================================== -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

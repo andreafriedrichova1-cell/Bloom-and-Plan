@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Aesthetic Life OS • Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════════════
+       NOTION-LIKE LIFE OS DASHBOARD
+       ═══════════════════════════════════════════════ */
+
+    :root {
+      --bg:         #FFFFFF;
+      --sidebar-bg: #F7F6F3;
+      --sidebar-w:  240px;
+      --hover:      rgba(55,53,47,0.06);
+      --active:     rgba(55,53,47,0.09);
+      --border:     rgba(55,53,47,0.09);
+      --text:       #37352F;
+      --text-mid:   #6B6760;
+      --text-light: #9B9A97;
+      --rose:       #C9927A;
+      --rose-bg:    rgba(201,146,122,0.12);
+      --rose-light: #F5EAE3;
+      --sage:       #6D9F7E;
+      --sage-bg:    rgba(109,159,126,0.12);
+      --gold:       #C4A25A;
+      --gold-bg:    rgba(196,162,90,0.12);
+      --blue:       #5B88C4;
+      --blue-bg:    rgba(91,136,196,0.12);
+      --purple:     #9B7DC8;
+      --purple-bg:  rgba(155,125,200,0.12);
+      --pink:       #D4839F;
+      --pink-bg:    rgba(212,131,159,0.12);
+      --font: 'Inter', -apple-system, sans-serif;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 15px; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(55,53,47,0.15); border-radius: 10px; }
+
+    /* ═══ SIDEBAR ═══ */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      overflow: hidden;
+      transition: width 0.2s;
+    }
+
+    .sidebar-top {
+      padding: 8px 10px 4px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .workspace-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.15s;
+      width: 100%;
+    }
+    .workspace-btn:hover { background: var(--hover); }
+    .workspace-icon {
+      width: 26px; height: 26px;
+      border-radius: 5px;
+      background: linear-gradient(135deg, var(--rose), var(--pink));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; flex-shrink: 0;
+    }
+    .workspace-name {
+      font-size: 13px; font-weight: 600; color: var(--text);
+      flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .workspace-chevron { color: var(--text-light); font-size: 10px; }
+
+    .sidebar-actions {
+      display: flex;
+      gap: 2px;
+      padding: 4px 10px;
+    }
+    .sb-action {
+      display: flex; align-items: center; gap: 6px;
+      padding: 4px 8px; border-radius: 4px;
+      font-size: 12px; color: var(--text-mid);
+      cursor: pointer; transition: background 0.15s;
+      flex: 1;
+    }
+    .sb-action:hover { background: var(--hover); }
+
+    .sidebar-nav {
+      flex: 1;
+      overflow-y: auto;
+      padding: 4px 10px 12px;
+    }
+
+    .nav-section {
+      margin-bottom: 4px;
+    }
+
+    .nav-section-label {
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--text-light);
+      padding: 8px 8px 4px;
+      text-transform: uppercase;
+    }
+
+    .nav-item {
+      display: flex; align-items: center; gap: 7px;
+      padding: 4px 8px; border-radius: 4px;
+      font-size: 13.5px; color: var(--text);
+      cursor: pointer; transition: background 0.1s;
+      user-select: none;
+    }
+    .nav-item:hover { background: var(--hover); }
+    .nav-item.active { background: var(--active); font-weight: 500; }
+    .nav-item-icon { width: 18px; text-align: center; font-size: 14px; }
+    .nav-item-label { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .nav-sub {
+      padding-left: 18px;
+    }
+    .nav-sub .nav-item {
+      font-size: 13px;
+      padding: 3px 8px;
+    }
+
+    .sidebar-footer {
+      padding: 8px 10px 12px;
+      border-top: 1px solid var(--border);
+    }
+    .sidebar-footer .nav-item { font-size: 12.5px; color: var(--text-mid); }
+
+    /* ═══ MAIN CONTENT ═══ */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ─── TOP BAR ─── */
+    .topbar {
+      height: 44px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      border-bottom: 1px solid var(--border);
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .topbar-breadcrumb {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; color: var(--text-mid);
+    }
+    .topbar-breadcrumb .current { color: var(--text); font-weight: 500; }
+    .topbar-spacer { flex: 1; }
+    .topbar-btn {
+      display: flex; align-items: center; gap: 4px;
+      padding: 4px 10px; border-radius: 4px;
+      font-size: 12px; color: var(--text-mid);
+      cursor: pointer; transition: background 0.15s;
+      border: 1px solid transparent;
+    }
+    .topbar-btn:hover { background: var(--hover); border-color: var(--border); }
+    .topbar-btn.primary {
+      background: var(--rose); color: #fff; border-color: var(--rose); font-weight: 500;
+    }
+    .topbar-btn.primary:hover { background: #b8816a; }
+
+    /* ─── PAGE CONTENT ─── */
+    .page-content {
+      flex: 1;
+      overflow-y: auto;
+      padding-bottom: 40px;
+    }
+
+    /* Cover */
+    .page-cover {
+      width: 100%; height: 200px;
+      overflow: hidden; position: relative;
+      cursor: pointer;
+    }
+    .page-cover img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center 40%;
+      transition: filter 0.2s;
+    }
+    .page-cover:hover img { filter: brightness(1.05); }
+    .cover-btn {
+      position: absolute; bottom: 8px; right: 12px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 4px; padding: 3px 10px;
+      font-size: 11.5px; color: var(--text-mid);
+      opacity: 0; transition: opacity 0.2s;
+      cursor: pointer; backdrop-filter: blur(4px);
+    }
+    .page-cover:hover .cover-btn { opacity: 1; }
+
+    /* Page Header */
+    .page-header {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px 60px 8px;
+    }
+    .page-emoji { font-size: 52px; line-height: 1.1; margin-bottom: 8px; cursor: pointer; }
+    .page-title {
+      font-family: var(--font);
+      font-size: 30px; font-weight: 700;
+      color: var(--text); line-height: 1.2;
+      outline: none;
+      border: none;
+      background: transparent;
+      width: 100%;
+      padding: 2px 0;
+      caret-color: var(--rose);
+    }
+    .page-title:focus { outline: none; }
+    .page-subtitle {
+      font-size: 14px; color: var(--text-light);
+      margin-top: 4px; font-style: italic;
+    }
+
+    /* ─── BODY ─── */
+    .page-body {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4px 60px 40px;
+    }
+
+    /* Divider */
+    .block-divider {
+      height: 1px; background: var(--border);
+      margin: 16px 0;
+    }
+
+    /* ─── DASHBOARD GRID ─── */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .dash-col {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .dash-col-header {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--text-light);
+      padding: 4px 6px;
+      border-radius: 4px;
+      margin-bottom: 2px;
+    }
+
+    .dash-col-header.rose-h  { color: var(--rose);   background: var(--rose-bg); }
+    .dash-col-header.sage-h  { color: var(--sage);   background: var(--sage-bg); }
+    .dash-col-header.blue-h  { color: var(--blue);   background: var(--blue-bg); }
+    .dash-col-header.purple-h{ color: var(--purple); background: var(--purple-bg); }
+
+    .dash-link {
+      display: flex; align-items: center; gap: 7px;
+      padding: 4px 6px; border-radius: 4px;
+      font-size: 13px; color: var(--text);
+      cursor: pointer; transition: background 0.1s;
+    }
+    .dash-link:hover { background: var(--hover); }
+    .dash-link-icon { font-size: 14px; width: 18px; text-align: center; }
+
+    /* ─── STATS ROW ─── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: background 0.15s, box-shadow 0.15s;
+    }
+    .stat-card:hover { background: var(--hover); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .stat-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--text-light); margin-bottom: 6px;
+    }
+    .stat-value {
+      font-size: 26px; font-weight: 700; color: var(--text); line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-sub { font-size: 11px; color: var(--text-light); }
+    .stat-bar { height: 3px; border-radius: 2px; background: var(--border); margin-top: 8px; overflow: hidden; }
+    .stat-bar-fill { height: 100%; border-radius: 2px; transition: width 0.5s; }
+
+    /* ─── SECTION TITLE ─── */
+    .section-heading {
+      font-size: 13px; font-weight: 600;
+      color: var(--text); margin: 20px 0 8px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .section-heading::after {
+      content: ''; flex: 1;
+      height: 1px; background: var(--border);
+    }
+
+    /* ─── HABIT TRACKER ─── */
+    .habit-grid {
+      display: grid;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .habit-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 10px; border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #fff;
+      transition: background 0.15s;
+    }
+    .habit-row:hover { background: var(--hover); }
+
+    .habit-name { flex: 1; font-size: 13px; }
+    .habit-streak {
+      font-size: 11px; color: var(--text-light);
+      padding: 2px 7px; border-radius: 100px;
+      background: var(--sage-bg); color: var(--sage);
+      font-weight: 500;
+    }
+    .habit-days {
+      display: flex; gap: 3px;
+    }
+    .habit-day {
+      width: 20px; height: 20px;
+      border-radius: 4px; border: 1px solid var(--border);
+      background: var(--bg); cursor: pointer;
+      font-size: 9px; display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s;
+      color: var(--text-light);
+    }
+    .habit-day.done { background: var(--sage); border-color: var(--sage); color: #fff; }
+    .habit-day.today { border-color: var(--rose); }
+
+    /* ─── TASK LIST ─── */
+    .task-list {
+      display: flex; flex-direction: column; gap: 2px;
+      margin-bottom: 8px;
+    }
+
+    .task-item {
+      display: flex; align-items: flex-start; gap: 8px;
+      padding: 5px 8px; border-radius: 4px;
+      cursor: pointer; transition: background 0.1s;
+    }
+    .task-item:hover { background: var(--hover); }
+
+    .task-check {
+      width: 16px; height: 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 3px; flex-shrink: 0;
+      margin-top: 1px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s;
+      background: #fff;
+    }
+    .task-check.done { background: var(--sage); border-color: var(--sage); color: #fff; font-size: 9px; }
+    .task-text { font-size: 13.5px; line-height: 1.4; }
+    .task-text.done { text-decoration: line-through; color: var(--text-light); }
+    .task-tag {
+      margin-left: auto; flex-shrink: 0;
+      font-size: 10.5px; font-weight: 500;
+      padding: 2px 7px; border-radius: 100px;
+    }
+    .task-tag.rose   { background: var(--rose-bg); color: var(--rose); }
+    .task-tag.sage   { background: var(--sage-bg); color: var(--sage); }
+    .task-tag.blue   { background: var(--blue-bg); color: var(--blue); }
+    .task-tag.gold   { background: var(--gold-bg); color: var(--gold); }
+    .task-tag.purple { background: var(--purple-bg); color: var(--purple); }
+
+    .add-item-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 5px 8px; border-radius: 4px;
+      font-size: 13px; color: var(--text-light);
+      cursor: pointer; transition: background 0.1s;
+    }
+    .add-item-btn:hover { background: var(--hover); color: var(--text); }
+
+    /* ─── GOALS ─── */
+    .goals-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .goal-card {
+      border: 1px solid var(--border); border-radius: 8px;
+      padding: 12px 14px; cursor: pointer;
+      transition: background 0.15s, box-shadow 0.15s;
+    }
+    .goal-card:hover { background: var(--hover); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .goal-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+    .goal-deadline { font-size: 11px; color: var(--text-light); margin-bottom: 6px; }
+    .goal-progress-bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+    .goal-progress-fill { height: 100%; border-radius: 2px; }
+    .goal-pct { font-size: 11px; font-weight: 600; margin-top: 4px; }
+
+    /* ─── WEEKLY PLAN ─── */
+    .week-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;
+      margin-bottom: 12px;
+    }
+    .week-day {
+      border: 1px solid var(--border); border-radius: 8px;
+      padding: 8px 6px; min-height: 80px;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .week-day:hover { background: var(--hover); }
+    .week-day.today { border-color: var(--rose); background: var(--rose-light); }
+    .week-day-name { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-light); margin-bottom: 2px; }
+    .week-day-num { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .week-day.today .week-day-num { color: var(--rose); }
+    .week-event {
+      font-size: 10px; padding: 2px 5px; border-radius: 3px;
+      margin-bottom: 2px; line-height: 1.3;
+    }
+
+    /* ─── NOTES / BRAIN DUMP ─── */
+    .note-block {
+      border: 1px solid var(--border); border-radius: 8px;
+      padding: 14px 16px; margin-bottom: 8px;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .note-block:hover { background: var(--hover); }
+    .note-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+    .note-date { font-size: 11px; color: var(--text-light); margin-bottom: 6px; }
+    .note-preview { font-size: 12.5px; color: var(--text-mid); line-height: 1.5; }
+
+    /* ─── GRATITUDE ─── */
+    .gratitude-grid { display: grid; gap: 6px; margin-bottom: 8px; }
+    .gratitude-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 12px; border-radius: 6px;
+      border: 1px solid var(--border); background: var(--rose-light);
+    }
+    .grat-num { font-size: 18px; font-weight: 700; color: var(--rose); width: 24px; }
+    .grat-content { flex: 1; font-size: 13px; color: var(--text); font-style: italic; font-family: var(--font-serif); }
+    .grat-date { font-size: 11px; color: var(--text-light); }
+
+    /* ─── FINANCE ─── */
+    .finance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+    .finance-card {
+      border: 1px solid var(--border); border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .finance-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-light); margin-bottom: 4px; }
+    .finance-amount { font-size: 22px; font-weight: 700; }
+    .finance-amount.income { color: var(--sage); }
+    .finance-amount.expense { color: var(--rose); }
+    .finance-amount.savings { color: var(--blue); }
+
+    .expense-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 8px; border-radius: 4px; cursor: pointer;
+      transition: background 0.1s;
+    }
+    .expense-row:hover { background: var(--hover); }
+    .expense-cat { flex: 1; font-size: 13px; }
+    .expense-amt { font-size: 13px; font-weight: 600; color: var(--text); }
+    .expense-bar { flex: 0 0 60px; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+    .expense-bar-fill { height: 100%; border-radius: 2px; }
+
+    /* ─── READING LIST ─── */
+    .book-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 8px; border-radius: 6px;
+      cursor: pointer; transition: background 0.1s;
+      border-bottom: 1px solid var(--border);
+    }
+    .book-row:hover { background: var(--hover); }
+    .book-row:last-child { border-bottom: none; }
+    .book-cover {
+      width: 32px; height: 44px; border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .book-info { flex: 1; }
+    .book-title { font-size: 13px; font-weight: 600; margin-bottom: 1px; }
+    .book-author { font-size: 11.5px; color: var(--text-mid); }
+    .book-status { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 100px; flex-shrink: 0; }
+    .book-status.reading { background: var(--blue-bg); color: var(--blue); }
+    .book-status.done    { background: var(--sage-bg); color: var(--sage); }
+    .book-status.next    { background: var(--gold-bg); color: var(--gold); }
+
+    /* ─── TRAVEL ─── */
+    .trip-card {
+      border: 1px solid var(--border); border-radius: 8px;
+      padding: 12px 14px; margin-bottom: 8px;
+      cursor: pointer; transition: background 0.15s;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .trip-card:hover { background: var(--hover); }
+    .trip-icon { font-size: 30px; flex-shrink: 0; }
+    .trip-info { flex: 1; }
+    .trip-dest { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+    .trip-date { font-size: 11.5px; color: var(--text-mid); margin-bottom: 4px; }
+    .trip-items { display: flex; flex-wrap: wrap; gap: 4px; }
+    .trip-tag { font-size: 10.5px; padding: 2px 7px; border-radius: 100px; background: var(--blue-bg); color: var(--blue); }
+    .trip-status { font-size: 11.5px; font-weight: 600; padding: 4px 12px; border-radius: 100px; flex-shrink: 0; }
+    .trip-status.planning { background: var(--gold-bg); color: var(--gold); }
+    .trip-status.booked   { background: var(--sage-bg); color: var(--sage); }
+
+    /* ─── CONTENT PLANNER ─── */
+    .content-table { width: 100%; border-collapse: collapse; }
+    .content-table th {
+      text-align: left; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--text-light); padding: 6px 10px;
+      border-bottom: 2px solid var(--border);
+    }
+    .content-table td {
+      padding: 8px 10px; border-bottom: 1px solid var(--border);
+      font-size: 13px; vertical-align: middle;
+    }
+    .content-table tr:hover td { background: var(--hover); }
+    .content-table tr:last-child td { border-bottom: none; }
+    .content-platform { font-size: 10.5px; font-weight: 600; padding: 2px 8px; border-radius: 100px; }
+
+    /* ─── CALLOUT ─── */
+    .callout {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 12px 14px; border-radius: 6px;
+      margin-bottom: 12px;
+      font-size: 13.5px; line-height: 1.5;
+    }
+    .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: -1px; }
+    .callout.rose   { background: var(--rose-bg); }
+    .callout.sage   { background: var(--sage-bg); }
+    .callout.gold   { background: var(--gold-bg); }
+    .callout.blue   { background: var(--blue-bg); }
+
+    /* ─── TOGGLE BLOCKS ─── */
+    .toggle-block {
+      margin-bottom: 2px;
+    }
+    .toggle-header {
+      display: flex; align-items: center; gap: 6px;
+      padding: 4px 8px; border-radius: 4px;
+      cursor: pointer; transition: background 0.1s;
+      font-size: 13.5px; font-weight: 500;
+      user-select: none;
+    }
+    .toggle-header:hover { background: var(--hover); }
+    .toggle-arrow {
+      width: 16px; height: 16px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-light); font-size: 10px;
+      transition: transform 0.2s;
+    }
+    .toggle-block.open .toggle-arrow { transform: rotate(90deg); }
+    .toggle-body {
+      display: none;
+      padding-left: 28px;
+      padding-top: 4px;
+    }
+    .toggle-block.open .toggle-body { display: block; }
+
+    /* ─── PAGES ─── */
+    .page-view { display: none; }
+    .page-view.active { display: block; }
+
+    /* ─── QUOTE BLOCK ─── */
+    .quote-block {
+      border-left: 3px solid var(--rose);
+      padding: 4px 14px;
+      margin: 8px 0;
+      font-size: 14px;
+      color: var(--text-mid);
+      font-style: italic;
+      font-family: var(--font-serif);
+    }
+
+    /* ─── FITNESS ─── */
+    .fitness-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 10px; border-radius: 6px;
+      border: 1px solid var(--border); margin-bottom: 6px;
+      cursor: pointer; transition: background 0.1s;
+    }
+    .fitness-row:hover { background: var(--hover); }
+    .fitness-icon { font-size: 18px; width: 28px; text-align: center; }
+    .fitness-name { flex: 1; font-size: 13px; font-weight: 500; }
+    .fitness-duration { font-size: 11.5px; color: var(--text-light); }
+    .fitness-done { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; transition: all 0.15s; }
+    .fitness-done.checked { background: var(--sage); border-color: var(--sage); color: #fff; }
+
+    /* ─── MOBILE TOGGLE ─── */
+    .mobile-toggle {
+      display: none; position: fixed; top: 10px; left: 10px; z-index: 100;
+      background: var(--sidebar-bg); border: 1px solid var(--border);
+      border-radius: 6px; padding: 6px 10px; font-size: 14px; cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar { position: fixed; left: -260px; z-index: 50; height: 100vh; transition: left 0.25s; }
+      .sidebar.open { left: 0; box-shadow: 4px 0 20px rgba(0,0,0,0.1); }
+      .mobile-toggle { display: flex; }
+      .page-header { padding: 16px 20px 8px; }
+      .page-body { padding: 4px 20px 40px; }
+      .dashboard-grid { grid-template-columns: 1fr 1fr; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .goals-grid { grid-template-columns: 1fr; }
+      .week-grid { grid-template-columns: repeat(4,1fr); }
+      .finance-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
+
+<!-- ════════════════ SIDEBAR ════════════════ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-top">
+    <div class="workspace-btn">
+      <div class="workspace-icon">🌸</div>
+      <div class="workspace-name">My Life OS</div>
+      <div class="workspace-chevron">⌄</div>
+    </div>
+  </div>
+
+  <div class="sidebar-actions">
+    <div class="sb-action">🔍 Search</div>
+    <div class="sb-action">✏️ New</div>
+  </div>
+
+  <div class="sidebar-nav">
+
+    <div class="nav-section">
+      <div class="nav-item active" onclick="navigate('dashboard')">
+        <div class="nav-item-icon">🏠</div>
+        <div class="nav-item-label">Dashboard</div>
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-section-label">Quick Access</div>
+      <div class="nav-item" onclick="navigate('weekly')">
+        <div class="nav-item-icon">📅</div>
+        <div class="nav-item-label">Weekly Plan</div>
+      </div>
+      <div class="nav-item" onclick="navigate('goals')">
+        <div class="nav-item-icon">🎯</div>
+        <div class="nav-item-label">Goals</div>
+      </div>
+      <div class="nav-item" onclick="navigate('braindump')">
+        <div class="nav-item-icon">🧠</div>
+        <div class="nav-item-label">Brain Dump</div>
+      </div>
+      <div class="nav-item" onclick="navigate('notes')">
+        <div class="nav-item-icon">📝</div>
+        <div class="nav-item-label">Notes</div>
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-section-label">Wellness</div>
+      <div class="nav-item" onclick="navigate('habits')">
+        <div class="nav-item-icon">✅</div>
+        <div class="nav-item-label">Habit Tracker</div>
+      </div>
+      <div class="nav-item" onclick="navigate('gratitude')">
+        <div class="nav-item-icon">🌸</div>
+        <div class="nav-item-label">Gratitude</div>
+      </div>
+      <div class="nav-item" onclick="navigate('fitness')">
+        <div class="nav-item-icon">💪</div>
+        <div class="nav-item-label">Fitness</div>
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-section-label">Productivity</div>
+      <div class="nav-item" onclick="navigate('projects')">
+        <div class="nav-item-icon">📂</div>
+        <div class="nav-item-label">Projects</div>
+      </div>
+      <div class="nav-item" onclick="navigate('tasks')">
+        <div class="nav-item-icon">☑️</div>
+        <div class="nav-item-label">Tasks</div>
+      </div>
+      <div class="nav-item" onclick="navigate('content')">
+        <div class="nav-item-icon">📱</div>
+        <div class="nav-item-label">Content Planner</div>
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-section-label">Personal</div>
+      <div class="nav-item" onclick="navigate('finance')">
+        <div class="nav-item-icon">💰</div>
+        <div class="nav-item-label">Finance</div>
+      </div>
+      <div class="nav-item" onclick="navigate('reading')">
+        <div class="nav-item-icon">📚</div>
+        <div class="nav-item-label">Reading List</div>
+      </div>
+      <div class="nav-item" onclick="navigate('travel')">
+        <div class="nav-item-icon">✈️</div>
+        <div class="nav-item-label">Travel</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="nav-item">⚙️ Settings</div>
+    <div class="nav-item">🔗 Share Template</div>
+    <div class="nav-item" style="color:var(--rose);">🌸 Bloom &amp; Plan</div>
+  </div>
+</aside>
+
+<!-- ════════════════ MAIN ════════════════ -->
+<main class="main">
+
+  <!-- TOP BAR -->
+  <div class="topbar" id="topbar">
+    <div class="topbar-breadcrumb">
+      <span>My Life OS</span>
+      <span style="color:var(--border)">›</span>
+      <span class="current" id="breadcrumb-current">Dashboard</span>
+    </div>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-btn">👁 View</div>
+    <div class="topbar-btn">⋯ More</div>
+    <div class="topbar-btn primary">＋ New</div>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <div class="page-content">
+
+    <!-- ══════════════════ DASHBOARD ══════════════════ -->
+    <div class="page-view active" id="view-dashboard">
+      <div class="page-cover">
+        <img src="banner.jpg" alt="Life OS Banner" />
+        <div class="cover-btn">Change cover</div>
+      </div>
+
+      <div class="page-header">
+        <div class="page-emoji">🌿</div>
+        <div class="page-title" contenteditable spellcheck="false">My Aesthetic Life OS • Dashboard</div>
+        <div class="page-subtitle">Your entire life, beautifully organised ✨</div>
+      </div>
+
+      <div class="page-body">
+
+        <div class="callout rose">
+          <span class="callout-icon">🌸</span>
+          <span>Welcome to your Life OS! Click any section to open it, or use the sidebar to navigate. Everything here is editable.</span>
+        </div>
+
+        <!-- Stats -->
+        <div class="section-heading">📊 Overview</div>
+        <div class="stats-row">
+          <div class="stat-card" onclick="navigate('habits')">
+            <div class="stat-label">Habits This Week</div>
+            <div class="stat-value">5<span style="font-size:16px;color:var(--text-light)">/7</span></div>
+            <div class="stat-sub">71% completion rate</div>
+            <div class="stat-bar"><div class="stat-bar-fill" style="width:71%;background:var(--sage);"></div></div>
+          </div>
+          <div class="stat-card" onclick="navigate('goals')">
+            <div class="stat-label">Goals On Track</div>
+            <div class="stat-value">3<span style="font-size:16px;color:var(--text-light)">/4</span></div>
+            <div class="stat-sub">75% progress overall</div>
+            <div class="stat-bar"><div class="stat-bar-fill" style="width:75%;background:var(--rose);"></div></div>
+          </div>
+          <div class="stat-card" onclick="navigate('tasks')">
+            <div class="stat-label">Tasks Done Today</div>
+            <div class="stat-value">8<span style="font-size:16px;color:var(--text-light)">/12</span></div>
+            <div class="stat-sub">4 remaining</div>
+            <div class="stat-bar"><div class="stat-bar-fill" style="width:66%;background:var(--blue);"></div></div>
+          </div>
+          <div class="stat-card" onclick="navigate('finance')">
+            <div class="stat-label">Budget Left</div>
+            <div class="stat-value">$842</div>
+            <div class="stat-sub">of $2,000 this month</div>
+            <div class="stat-bar"><div class="stat-bar-fill" style="width:42%;background:var(--gold);"></div></div>
+          </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="section-heading">🗺 Quick Navigation</div>
+        <div class="dashboard-grid">
+          <!-- Quick Access -->
+          <div class="dash-col">
+            <div class="dash-col-header rose-h">Quick Access</div>
+            <div class="dash-link" onclick="navigate('weekly')"><span class="dash-link-icon">📅</span> Weekly Plan</div>
+            <div class="dash-link" onclick="navigate('goals')"><span class="dash-link-icon">🎯</span> Goals</div>
+            <div class="dash-link" onclick="navigate('braindump')"><span class="dash-link-icon">🧠</span> Brain Dump</div>
+            <div class="dash-link" onclick="navigate('notes')"><span class="dash-link-icon">📝</span> Notes</div>
+          </div>
+          <!-- Wellness -->
+          <div class="dash-col">
+            <div class="dash-col-header sage-h">Wellness</div>
+            <div class="dash-link" onclick="navigate('habits')"><span class="dash-link-icon">✅</span> Habit Tracker</div>
+            <div class="dash-link" onclick="navigate('gratitude')"><span class="dash-link-icon">🌸</span> Gratitude</div>
+            <div class="dash-link" onclick="navigate('fitness')"><span class="dash-link-icon">💪</span> Fitness</div>
+          </div>
+          <!-- Productivity -->
+          <div class="dash-col">
+            <div class="dash-col-header blue-h">Productivity</div>
+            <div class="dash-link" onclick="navigate('projects')"><span class="dash-link-icon">📂</span> Projects</div>
+            <div class="dash-link" onclick="navigate('tasks')"><span class="dash-link-icon">☑️</span> Tasks</div>
+            <div class="dash-link" onclick="navigate('content')"><span class="dash-link-icon">📱</span> Content Planner</div>
+          </div>
+          <!-- Personal -->
+          <div class="dash-col">
+            <div class="dash-col-header purple-h">Personal</div>
+            <div class="dash-link" onclick="navigate('finance')"><span class="dash-link-icon">💰</span> Finance</div>
+            <div class="dash-link" onclick="navigate('reading')"><span class="dash-link-icon">📚</span> Reading List</div>
+            <div class="dash-link" onclick="navigate('travel')"><span class="dash-link-icon">✈️</span> Travel</div>
+          </div>
+        </div>
+
+        <!-- Today's Tasks -->
+        <div class="section-heading">☀️ Today's Focus</div>
+        <div class="task-list" id="dashboard-tasks">
+          <div class="task-item" onclick="toggleTask(this)">
+            <div class="task-check done">✓</div>
+            <div class="task-text done">Morning journal & gratitude</div>
+            <span class="task-tag sage">Wellness</span>
+          </div>
+          <div class="task-item" onclick="toggleTask(this)">
+            <div class="task-check done">✓</div>
+            <div class="task-text done">Review weekly goals</div>
+            <span class="task-tag blue">Planning</span>
+          </div>
+          <div class="task-item" onclick="toggleTask(this)">
+            <div class="task-check"></div>
+            <div class="task-text">Work on blog post draft</div>
+            <span class="task-tag rose">Content</span>
+          </div>
+          <div class="task-item" onclick="toggleTask(this)">
+            <div class="task-check"></div>
+            <div class="task-text">30 min yoga session</div>
+            <span class="task-tag sage">Fitness</span>
+          </div>
+          <div class="task-item" onclick="toggleTask(this)">
+            <div class="task-check"></div>
+            <div class="task-text">Read for 20 minutes</div>
+            <span class="task-tag gold">Personal</span>
+          </div>
+        </div>
+        <div class="add-item-btn" onclick="addTask('dashboard-tasks')">＋ Add a task</div>
+
+        <div class="block-divider"></div>
+        <div class="quote-block">"The secret of getting ahead is getting started." — Mark Twain</div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════ WEEKLY PLAN ══════════════════ -->
+    <div class="page-view" id="view-weekly">
+      <div class="page-header" style="padding-top:32px">
+        <div class="page-emoji">📅</div>
+        <div class="page-title" contenteditable spellcheck="false">Weekly Plan</div>
+        <div class="page-subtitle">Week of July 14 – 20, 2026</div>
+      </div>
+      <div class="page-body">
+        <div class="callout gold">
+          <span class="callout-icon">⚡</span>
+          <span><strong>This week's intention:</strong> Focus on deep work, rest, and daily movement.</span>
+        </div>
+        <div class="section-heading">📆 Week at a Glance</div>
+        <div class="week-grid">
+          <div class="week-day">
+            <div class="week-day-name">Mon</div>
+            <div class="week-day-num">14</div>
+            <div class="week-event" style="background:var(--rose-bg);color:var(--rose)">Deep work</div>
+            <div class="week-event" style="background:var(--sage-bg);color:var(--sage)">Yoga 7am</div>
+          </div>
+          <div class="week-day today">
+            <div class="week-day-name">Tue</div>
+            <div class="week-day-num">15</div>
+            <div class="week-event" style="background:var(--rose-bg);color:var(--rose)">Blog post</div>
+            <div class="week-event" style="background:var(--blue-bg);color:var(--blue)">Call 3pm</div>
+          </div>
+          <div class="week-day">
+            <div class="week-day-name">Wed</div>
+            <div class="week-day-num">16</div>
+            <div class="week-event" style="background:var(--gold-bg);color:var(--gold)">Reading</div>
+          </div>
+          <div class="week-day">
+            <div class="week-day-name">Thu</div>
+            <div class="week-day-num">17</div>
+            <div class="week-event" style="background:var(--purple-bg);color:var(--purple)">Journaling</div>
+            <div class="week-event" style="background:var(--sage-bg);color:var(--sage)">Walk</div>
+          </div>
+          <div class="week-day">
+            <div class="week-day-name">Fri</div>
+            <div class="week-day-num">18</div>
+            <div class="week-event" style="background:var(--rose-bg);color:var(--rose)">Content</div>
+          </div>
+          <div class="week-day">
+            <div class="week-day-name">Sat</div>
+            <div class="week-day-num">19</div>
+            <div class="week-event" style="background:var(--gold-bg);color:var(--gold)">Self-care</div>
+          </div>
+          <div class="week-day">
+            <div class="week-day-name">Sun</div>
+            <div class="week-day-num">20</div>
+            <div class="week-event" style="background:var(--sage-bg);color:var(--sage)">Rest & reset</div>
+          </div>
+        </div>
+        <div class="section-heading">🎯 Weekly Priorities</div>
+        <div class="task-list" id="weekly-tasks">
+          <div class="task-item" onclick="toggleTask(this)"><div class="task-check done">✓</div><div class="task-text done">Publish blog post #12</div><span class="task-tag rose">Content</span></div>
+          <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Complete online course module 3</div><span class="task-tag blue">Learning</span></div>
+          <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Plan next month's content calendar</div><span class="task-tag rose">Content</span></div>
+          <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Family dinner Sunday</div><span class="task-tag gold">Personal</span></div>
+        </div>
+        <div class="add-item-btn" onclick="addTask('weekly-tasks')">＋ Add priority</div>
+      </div>
+    </div>
+
+    <!-- ══════════════════ GOALS ══════════════════ -->
+    <div class="page-view" id="view-goals">
+      <div class="page-header" style="padding-top:32px">
+        <div class="page-emoji">🎯</div>
+        <div class="page-title" contenteditable spellcheck="false">Goals</div>
+        <div class="page-subtitle">Dream big. Break it down. Make it happen.</div>
+      </div>
+      <div class="page-body">
+        <div class="section-heading">🌟 2026 Goals</div>
+        <div class="goals-grid">
+          <div class="goal-card">
+            <div class="goal-title">💰 Launch digital product shop</div>
+            <div class="goal-deadline">Deadline: Aug 31, 2026</div>
+            <div class="goal-progress-bar"><div class="goal-progress-fill" style="width:75%;background:var(--rose);"></div></div>
+            <div class="goal-pct" style="color:var(--rose)">75% complete</div>
+          </div>
+          <div class="goal-card">
+            <div class="goal-title">🌿 Run 5K without stopping</div>
+            <div class="goal-deadline">Deadline: Sep 15, 2026</div>
+            <div class="goal-progress-bar"><div class="goal-progress-fill" style="width:40%;background:var(--sage);"></div></div>
+            <div class="goal-pct" style="color:var(--sage)">40% complete</div>
+          </div>
+          <div class="goal-card">
+            <div class="goal-title">📚 Read 24 books this year</div>
+            <div class="goal-deadline">Deadline: Dec 31, 2026</div>
+            <div class="goal-progress-bar"><div class="goal-progress-fill" style="width:58%;background:var(--blue);"></div></div>
+            <div class="goal-pct" style="color:var(--blue)">14/24 books</div>
+          </div>
+          <div class="goal-card">
+            <div class="goal-title">✈️ Visit 2 new countries</div>
+            <div class="goal-deadline">Deadline: Dec 31, 2026</div>
+            <div class="goal-progress-bar"><div class="goal-progress-fill" style="width:50%;background:var(--purple);"></div></div>
+            <div class="goal-pct" style="color:var(--purple)">1/2 trips done</div>
+          </div>
+        </div>
+        <div class="section-heading">📝 Monthly Milestones</div>
+        <div class="task-list" id="goal-milestones">
+          <div class="task-item" onclick="toggleTask(this)"><div class="task-check done">✓</div><div class="task-text done">Launch shop website</div><span class="task-tag rose">July</span></div>
+          <div class="task-item" onclick="toggleTask(this)"><div class="task-check done">✓</div><div class="task-text done">Create first 3 digital products</div><span class="task-tag rose">July</span></div>
+          <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Get first 10 sales</div><span class="task-tag gold">August</span></div>
+          <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Run 3km non-stop</div><span class="task-tag sage">August</span></div>
+        </div>
+        <div class="add-item-btn" onclick="addTask('goal-milestones')">＋ Add milestone</div>
+      </div>
+    </div>
+
+    <!-- ══════════════════ HABIT TRACKER ══════════════════ -->
+    <div class="page-view" id="view-habits">
+      <div class="page-header" style="padding-top:32px">
+        <div class="page-emoji">✅</div>
+        <div class="page-title" contenteditable spellcheck="false">Habit Tracker</div>
+        <div class="page-subtitle">Small daily actions create extraordinary results.</div>
+      </div>
+      <div class="page-body">
+        <div class="callout sage">
+          <span class="callout-icon">💡</span>
+          <span>Click on the day circles to mark a habit as done. Build that streak!</span>
+        </div>
+        <div class="section-heading">🌿 This Week's Habits</div>
+        <div style="display:flex;gap:6px;margin-bottom:8px;padding:0 10px;">
+          <div style="flex:1"></div>
+          <div style="display:flex;gap:3px;">
+            <div style="width:20px;text-align:center;font-size:10px;font-weight:600;color:var(--text-light)">M</div>
+            <div style="width:20px;text-align:center;font-size:10px;font-weight:600;color:var(--text-light)">T</div>
+            <div style="width:20px;text-align:center;font-size:10px;font-weight:600;color:var(--rose);border-bottom:2px solid var(--rose)">W</div>
+            <div style="width:20px;text-align:center;font-size:10px;font-weight:600;color:var(--text-light)">T</div>
+            <div style="width:20px;text-align:center;font-size:10px;font-weight:600;color:var(--text-light)">F</div>
+            <div style="width:20px;text-align:center;font-size:10px;font-weight:600;color:var(--text-light)">S</div>
+            <div style="width:20px;text-align:center;font-size:10px;font-weight:600;color:var(--text-light)">S</div>
+          </div>
+        </div>
+        <div class="habit-grid">
+          <div class="habit-row"><span style="font-size:16px">🧘</span><span class="habit-name">Morning Meditation</span><span class="habit-streak">🔥 5 days</span><div class="habit-days"><div class="habit-day done" onclick="this.classList.toggle('done')">✓</div><div class="habit-day done" onclick="this.classList.toggle('done')">✓</div><div class="habit-day today done" onclick="this.classList.toggle('done')">✓</div><div class="habit-day" onclick="this.classList.toggle('done')">4</div><div class="habit-day" onclick="this.classList.toggle('done')">5</div><div class="habit-day" onclick="this.classList.toggle('done')">6</div><div class="habit-day" onclick="this.classList.toggle('done')">7</div></div></div>
+          <div class="habit-row"><span style="font-size:16px">📝</span><span class="habit-name">Journal 3 pages</span><span class="habit-streak">🔥 3 days</span><div class="habit-days"><div class="habit-day done" onclick="this.classList.toggle('done')">✓</div><div class="habit-day done" onclick="this.classList.toggle('done')">✓</div><div class="habit-day today done" onclick="this.classList.toggle('done')">✓</div><div class="habit-day" onclick="this.classList.toggle('done')">4</div><div class="habit-day" onclick="this.classList.toggle('done')">5</div><div class="habit-day" onclick="this.classList.toggle('done')">6</div><div class="habit-day" onclick="this.classList.toggle('done')">7</div></div></div>
+          <div class="habit-row"><span style="font-size:16px">💧</span><span class="habit-name">Drink 2L water</span><span class="habit-streak">🔥 7 days</span><div class="habit-days"><div class="habit-day done" onclick="this.classList.toggle('done')">✓</div><div class="habit-day done" onclick="this.classList.toggle('done')">✓</div><div class="habit-day today done" onclick="this.classList.toggle('done')">✓</div><div class="habit-day" onclick="this.classList.toggle('done')">4</div><div class="habit-day" onclick="this.classList.toggle('done')">5</div><div class="habit-day" onclick="this.classList.toggle('done')">6</div><div class="habit-day" onclick="this.classList.toggle('done')">7</div></div></div>
+          <div class="habit-row"><span style="font-size:16px">📚</span><span class="habit-name">Read 20 minutes</span><span class="habit-streak">🔥 2 days</span><div class="habit-days"><div class="habit-day done" onclick="this.classList.toggle('done')">✓</div><div class="habit-day done" onclick="this.classList.toggle('done')">✓</div><div class="habit-day today" onclick="this.classList.toggle('done')">3</div><div class="habit-day" onclick="this.classList.toggle('done')">4</div><div class="habit-day" onclick="this.classList.toggle('done')">5</div><div class="habit-day" onclick="this.classList.toggle('done')">6</div><div class="habit-day" onclick="this.classList.toggle('done')">7</div></div></div>
+          <div class="habit-row"><span style="font-size:16px">🚶</span><span class="habit-name">Walk 10,000 steps</span><span class="habit-streak">🔥 4 days</span><div class="habit-days"><div class="habit-day done" onclick="this.classList.toggle('done')">✓</div><div class="habit-day done" onclick="this.classList.toggle('done')">✓</div><div class="habit-day today done" onclick="this.classList.toggle('done')">✓</div><div class="habit-day" onclick="this.classList.toggle('done')">4</div><div class="habit-day" onclick="this.classList.toggle('done')">5</div><div class="habit-day" onclick="this.classList.toggle('done')">6</div><div class="habit-day" onclick="this.classList.toggle('done')">7</div></div></div>
+          <div class="habit-row"><span style="font-size:16px">🌙</span><span class="habit-name">In bed by 10:30pm</span><span class="habit-streak">🔥 1 day</span><div class="habit-days"><div class="habit-day done" onclick="this.classList.toggle('done')">✓</div><div class="habit-day" onclick="this.classList.toggle('done')">2</div><div class="habit-day today" onclick="this.classList.toggle('done')">3</div><div class="habit-day" onclick="this.classList.toggle('done')">4</div><div class="habit-day" onclick="this.classList.toggle('done')">5</div><div class="habit-day" onclick="this.classList.toggle('done')">6</div><div class="habit-day" onclick="this.classList.toggle('done')">7</div></div></div>
+        </div>
+        <div class="add-item-btn">＋ Add new habit</div>
+      </div>
+    </div>
+
+    <!-- ══════════════════ GRATITUDE ══════════════════ -->
+    <div class="page-view" id="view-gratitude">
+      <div class="page-header" style="padding-top:32px">
+        <div class="page-emoji">🌸</div>
+        <div class="page-title" contenteditable spellcheck="false">Gratitude Journal</div>
+        <div class="page-subtitle">Count your blessings. Name them one by one.</div>
+      </div>
+      <div class="page-body">
+        <div class="quote-block">"Gratitude turns what we have into enough." — Melody Beattie</div>
+        <div class="section-heading">Today — July 14, 2026</div>
+        <div class="callout rose">
+          <span class="callout-icon">✍️</span>
+          <div>
+            <div style="font-weight:600;margin-bottom:4px">Today I am grateful for…</div>
+            <div contenteditable style="outline:none;min-height:24px;font-style:italic;color:var(--text-mid)" spellcheck="false">Click to write your gratitude for today…</div>
+          </div>
+        </div>
+        <div class="section-heading">📖 Past Entries</div>
+        <div class="gratitude-grid">
+          <div class="gratitude-row"><div class="grat-num">1</div><div class="grat-content">The quiet morning light and my first cup of coffee ☕</div><div class="grat-date">Jul 13</div></div>
+          <div class="gratitude-row"><div class="grat-num">2</div><div class="grat-content">A long conversation with my best friend that lifted my spirits 💕</div><div class="grat-date">Jul 13</div></div>
+          <div class="gratitude-row"><div class="grat-num">3</div><div class="grat-content">The smell of rain and staying cozy inside 🌧️</div><div class="grat-date">Jul 12</div></div>
+          <div class="gratitude-row"><div class="grat-num">4</div><div class="grat-content">My body that carries me through every single day 🌿</div><div class="grat-date">Jul 12</div></div>
+          <div class="gratitude-row"><div class="grat-num">5</div><div class="grat-content">Making progress on my dream — one small step at a time ✨</div><div class="grat-date">Jul 11</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════ FITNESS ══════════════════ -->
+    <div class="page-view" id="view-fitness">
+      <div class="page-header" style="padding-top:32px">
+        <div class="page-emoji">💪</div>
+        <div class="page-title" contenteditable spellcheck="false">Fitness Tracker</div>
+        <div class="page-subtitle">Move your body. Love your body.</div>
+      </div>
+      <div class="page-body">
+        <div class="stats-row" style="grid-template-columns:repeat(3,1fr)">
+          <div class="stat-card"><div class="stat-label">Workouts This Month</div><div class="stat-value">14</div><div class="stat-sub">Goal: 20</div><div class="stat-bar"><div class="stat-bar-fill" style="width:70%;background:var(--sage)"></div></div></div>
+          <div class="stat-card"><div class="stat-label">Active Days</div><div class="stat-value">18</div><div class="stat-sub">of 30 days</div><div class="stat-bar"><div class="stat-bar-fill" style="width:60%;background:var(--rose)"></div></div></div>
+          <div class="stat-card"><div class="stat-label">Avg. Daily Steps</div><div class="stat-value">8,420</div><div class="stat-sub">Goal: 10,000</div><div class="stat-bar"><div class="stat-bar-fill" style="width:84%;background:var(--blue)"></div></div></div>
+        </div>
+        <div class="section-heading">📅 This Week's Workouts</div>
+        <div class="fitness-row"><div class="fitness-icon">🧘</div><div class="fitness-name">Morning Yoga Flow</div><div class="fitness-duration">30 min · Mon</div><div class="fitness-done checked" onclick="this.classList.toggle('checked')">✓</div></div>
+        <div class="fitness-row"><div class="fitness-icon">🏃</div><div class="fitness-name">2.5km Run</div><div class="fitness-duration">22 min · Tue</div><div class="fitness-done checked" onclick="this.classList.toggle('checked')">✓</div></div>
+        <div class="fitness-row"><div class="fitness-icon">🏋️</div><div class="fitness-name">Strength Training</div><div class="fitness-duration">45 min · Wed</div><div class="fitness-done" onclick="this.classList.toggle('checked')"></div></div>
+        <div class="fitness-row"><div class="fitness-icon">🚶</div><div class="fitness-name">Evening Walk</div><div class="fitness-duration">40 min · Thu</div><div class="fitness-done" onclick="this.classList.toggle('checked')"></div></div>
+        <div class="fitness-row"><div class="fitness-icon">🧘</div><div class="fitness-name">Pilates</div><div class="fitness-duration">35 min · Fri</div><div class="fitness-done" onclick="this.classList.toggle('checked')"></div></div>
+        <div class="add-item-btn">＋ Log workout</div>
+      </div>
+    </div>
+
+    <!-- ══════════════════ TASKS ══════════════════ -->
+    <div class="page-view" id="view-tasks">
+      <div class="page-header" style="padding-top:32px">
+        <div class="page-emoji">☑️</div>
+        <div class="page-title" contenteditable spellcheck="false">Tasks</div>
+        <div class="page-subtitle">Get things done, beautifully.</div>
+      </div>
+      <div class="page-body">
+        <div class="section-heading">🔴 High Priority</div>
+        <div class="task-list" id="tasks-high">
+          <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Finish Vision Board Kit PDF design</div><span class="task-tag rose">Work</span></div>
+          <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Reply to client emails</div><span class="task-tag rose">Work</span></div>
+          <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Book dentist appointment</div><span class="task-tag gold">Health</span></div>
+        </div>
+        <div class="add-item-btn" onclick="addTask('tasks-high')">＋ Add task</div>
+        <div class="section-heading">🟡 Medium Priority</div>
+        <div class="task-list" id="tasks-mid">
+          <div class="task-item" onclick="toggleTask(this)"><div class="task-check done">✓</div><div class="task-text done">Grocery shopping</div><span class="task-tag sage">Personal</span></div>
+          <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Schedule social posts for week</div><span class="task-tag blue">Content</span></div>
+          <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Tidy desk and workspace</div><span class="task-tag gold">Home</span></div>
+        </div>
+        <div class="add-item-btn" onclick="addTask('tasks-mid')">＋ Add task</div>
+        <div class="section-heading">🟢 Someday / Maybe</div>
+        <div class="task-list" id="tasks-low">
+          <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Learn Procreate illustration</div><span class="task-tag purple">Learning</span></div>
+          <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Research Bali retreat options</div><span class="task-tag blue">Travel</span></div>
+        </div>
+        <div class="add-item-btn" onclick="addTask('tasks-low')">＋ Add task</div>
+      </div>
+    </div>
+
+    <!-- ══════════════════ PROJECTS ══════════════════ -->
+    <div class="page-view" id="view-projects">
+      <div class="page-header" style="padding-top:32px">
+        <div class="page-emoji">📂</div>
+        <div class="page-title" contenteditable spellcheck="false">Projects</div>
+        <div class="page-subtitle">Big things are built one small step at a time.</div>
+      </div>
+      <div class="page-body">
+        <div class="goals-grid">
+          <div class="goal-card">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px"><div class="goal-title">🛍️ Digital Products Shop</div><span class="task-tag rose">Active</span></div>
+            <div class="goal-deadline">Started Jul 2026 · Ongoing</div>
+            <div class="goal-progress-bar"><div class="goal-progress-fill" style="width:80%;background:var(--rose)"></div></div>
+            <div class="goal-pct" style="color:var(--rose)">80% — Shop live ✨</div>
+          </div>
+          <div class="goal-card">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px"><div class="goal-title">✍️ Blog Relaunch</div><span class="task-tag blue">In Progress</span></div>
+            <div class="goal-deadline">Deadline: Aug 1, 2026</div>
+            <div class="goal-progress-bar"><div class="goal-progress-fill" style="width:45%;background:var(--blue)"></div></div>
+            <div class="goal-pct" style="color:var(--blue)">45% complete</div>
+          </div>
+          <div class="goal-card">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px"><div class="goal-title">📸 Instagram Growth</div><span class="task-tag sage">Active</span></div>
+            <div class="goal-deadline">Goal: 10k followers by Dec</div>
+            <div class="goal-progress-bar"><div class="goal-progress-fill" style="width:62%;background:var(--sage)"></div></div>
+            <div class="goal-pct" style="color:var(--sage)">6,200 / 10,000</div>
+          </div>
+          <div class="goal-card">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px"><div class="goal-title">🎓 Online Course Creation</div><span class="task-tag gold">Planning</span></div>
+            <div class="goal-deadline">Launch: Q4 2026</div>
+            <div class="goal-progress-bar"><div class="goal-progress-fill" style="width:15%;background:var(--gold)"></div></div>
+            <div class="goal-pct" style="color:var(--gold)">15% — Outline done</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════ CONTENT PLANNER ══════════════════ -->
+    <div class="page-view" id="view-content">
+      <div class="page-header" style="padding-top:32px">
+        <div class="page-emoji">📱</div>
+        <div class="page-title" contenteditable spellcheck="false">Content Planner</div>
+        <div class="page-subtitle">Create content that connects and inspires.</div>
+      </div>
+      <div class="page-body">
+        <div class="stats-row" style="grid-template-columns:repeat(3,1fr)">
+          <div class="stat-card"><div class="stat-label">Posts This Month</div><div class="stat-value">12</div><div class="stat-sub">Goal: 20</div></div>
+          <div class="stat-card"><div class="stat-label">Ideas in Pipeline</div><div class="stat-value">24</div><div class="stat-sub">Ready to create</div></div>
+          <div class="stat-card"><div class="stat-label">Published This Week</div><div class="stat-value">3</div><div class="stat-sub">On schedule ✓</div></div>
+        </div>
+        <div class="section-heading">📋 Content Calendar</div>
+        <table class="content-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Title / Topic</th>
+              <th>Platform</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Jul 14</td><td>Vision Board Kit launch post</td><td><span class="content-platform" style="background:var(--pink-bg);color:var(--pink)">Instagram</span></td><td><span class="task-tag sage">Published</span></td></tr>
+            <tr><td>Jul 15</td><td>"How I plan my week" carousel</td><td><span class="content-platform" style="background:var(--pink-bg);color:var(--pink)">Instagram</span></td><td><span class="task-tag blue">Scheduled</span></td></tr>
+            <tr><td>Jul 16</td><td>My morning routine vlog</td><td><span class="content-platform" style="background:var(--rose-bg);color:var(--rose)">YouTube</span></td><td><span class="task-tag gold">Drafting</span></td></tr>
+            <tr><td>Jul 18</td><td>Top 5 Notion tips for beginners</td><td><span class="content-platform" style="background:var(--blue-bg);color:var(--blue)">Blog</span></td><td><span class="task-tag gold">Drafting</span></td></tr>
+            <tr><td>Jul 20</td><td>Week in my life reel</td><td><span class="content-platform" style="background:var(--pink-bg);color:var(--pink)">Instagram</span></td><td><span class="task-tag purple">Idea</span></td></tr>
+            <tr><td>Jul 21</td><td>Digital product shop tour</td><td><span class="content-platform" style="background:var(--rose-bg);color:var(--rose)">YouTube</span></td><td><span class="task-tag purple">Idea</span></td></tr>
+          </tbody>
+        </table>
+        <div class="add-item-btn" style="margin-top:8px">＋ Add content idea</div>
+      </div>
+    </div>
+
+    <!-- ══════════════════ FINANCE ══════════════════ -->
+    <div class="page-view" id="view-finance">
+      <div class="page-header" style="padding-top:32px">
+        <div class="page-emoji">💰</div>
+        <div class="page-title" contenteditable spellcheck="false">Finance</div>
+        <div class="page-subtitle">Money flows to those who respect it.</div>
+      </div>
+      <div class="page-body">
+        <div class="finance-grid">
+          <div class="finance-card"><div class="finance-label">Income This Month</div><div class="finance-amount income">$3,280</div><div class="goal-progress-bar" style="margin-top:8px"><div class="goal-progress-fill" style="width:65%;background:var(--sage)"></div></div><div style="font-size:11px;color:var(--text-light);margin-top:4px">Goal: $5,000</div></div>
+          <div class="finance-card"><div class="finance-label">Expenses This Month</div><div class="finance-amount expense">$1,158</div><div class="goal-progress-bar" style="margin-top:8px"><div class="goal-progress-fill" style="width:58%;background:var(--rose)"></div></div><div style="font-size:11px;color:var(--text-light);margin-top:4px">Budget: $2,000</div></div>
+          <div class="finance-card"><div class="finance-label">Savings</div><div class="finance-amount savings">$2,122</div><div style="font-size:11px;color:var(--sage);margin-top:4px">↑ 64.7% of income saved</div></div>
+          <div class="finance-card"><div class="finance-label">Shop Revenue</div><div class="finance-amount" style="color:var(--gold)">$480</div><div style="font-size:11px;color:var(--text-light);margin-top:4px">32 orders this month</div></div>
+        </div>
+        <div class="section-heading">📊 Spending Breakdown</div>
+        <div class="expense-row"><span style="font-size:14px">🏠</span><div class="expense-cat">Rent & Utilities</div><div class="expense-bar"><div class="expense-bar-fill" style="width:60%;background:var(--blue)"></div></div><div class="expense-amt">$520</div></div>
+        <div class="expense-row"><span style="font-size:14px">🛒</span><div class="expense-cat">Groceries</div><div class="expense-bar"><div class="expense-bar-fill" style="width:25%;background:var(--sage)"></div></div><div class="expense-amt">$210</div></div>
+        <div class="expense-row"><span style="font-size:14px">☕</span><div class="expense-cat">Cafés & Dining</div><div class="expense-bar"><div class="expense-bar-fill" style="width:15%;background:var(--gold)"></div></div><div class="expense-amt">$130</div></div>
+        <div class="expense-row"><span style="font-size:14px">🛍️</span><div class="expense-cat">Shopping</div><div class="expense-bar"><div class="expense-bar-fill" style="width:12%;background:var(--rose)"></div></div><div class="expense-amt">$98</div></div>
+        <div class="expense-row"><span style="font-size:14px">📱</span><div class="expense-cat">Subscriptions</div><div class="expense-bar"><div class="expense-bar-fill" style="width:10%;background:var(--purple)"></div></div><div class="expense-amt">$78</div></div>
+        <div class="expense-row"><span style="font-size:14px">🎓</span><div class="expense-cat">Learning & Courses</div><div class="expense-bar"><div class="expense-bar-fill" style="width:8%;background:var(--blue)"></div></div><div class="expense-amt">$122</div></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════ READING LIST ══════════════════ -->
+    <div class="page-view" id="view-reading">
+      <div class="page-header" style="padding-top:32px">
+        <div class="page-emoji">📚</div>
+        <div class="page-title" contenteditable spellcheck="false">Reading List</div>
+        <div class="page-subtitle">A reader lives a thousand lives.</div>
+      </div>
+      <div class="page-body">
+        <div class="stats-row" style="grid-template-columns:repeat(3,1fr)">
+          <div class="stat-card"><div class="stat-label">Books Read 2026</div><div class="stat-value">14</div><div class="stat-sub">Goal: 24 books</div><div class="stat-bar"><div class="stat-bar-fill" style="width:58%;background:var(--blue)"></div></div></div>
+          <div class="stat-card"><div class="stat-label">Currently Reading</div><div class="stat-value">2</div><div class="stat-sub">Active books</div></div>
+          <div class="stat-card"><div class="stat-label">On My Wishlist</div><div class="stat-value">18</div><div class="stat-sub">Books to read</div></div>
+        </div>
+        <div class="section-heading">📖 Currently Reading</div>
+        <div class="book-row"><div class="book-cover" style="background:var(--rose-bg)">📗</div><div class="book-info"><div class="book-title">Atomic Habits</div><div class="book-author">James Clear</div></div><span class="book-status reading">Reading</span></div>
+        <div class="book-row"><div class="book-cover" style="background:var(--sage-bg)">📘</div><div class="book-info"><div class="book-title">The Year of Magical Thinking</div><div class="book-author">Joan Didion</div></div><span class="book-status reading">Reading</span></div>
+        <div class="section-heading">✅ Recently Finished</div>
+        <div class="book-row"><div class="book-cover" style="background:var(--gold-bg)">📙</div><div class="book-info"><div class="book-title">Big Magic</div><div class="book-author">Elizabeth Gilbert</div></div><span class="book-status done">Finished</span></div>
+        <div class="book-row"><div class="book-cover" style="background:var(--purple-bg)">📕</div><div class="book-info"><div class="book-title">The Alchemist</div><div class="book-author">Paulo Coelho</div></div><span class="book-status done">Finished</span></div>
+        <div class="book-row"><div class="book-cover" style="background:var(--blue-bg)">📒</div><div class="book-info"><div class="book-title">You Are a Badass</div><div class="book-author">Jen Sincero</div></div><span class="book-status done">Finished</span></div>
+        <div class="section-heading">📋 Up Next</div>
+        <div class="book-row"><div class="book-cover" style="background:var(--rose-bg)">📓</div><div class="book-info"><div class="book-title">The Art of Simple Living</div><div class="book-author">Shunmyo Masuno</div></div><span class="book-status next">Up Next</span></div>
+        <div class="book-row"><div class="book-cover" style="background:var(--sage-bg)">📔</div><div class="book-info"><div class="book-title">Essentialism</div><div class="book-author">Greg McKeown</div></div><span class="book-status next">Up Next</span></div>
+        <div class="add-item-btn" style="margin-top:4px">＋ Add book</div>
+      </div>
+    </div>
+
+    <!-- ══════════════════ TRAVEL ══════════════════ -->
+    <div class="page-view" id="view-travel">
+      <div class="page-header" style="padding-top:32px">
+        <div class="page-emoji">✈️</div>
+        <div class="page-title" contenteditable spellcheck="false">Travel</div>
+        <div class="page-subtitle">Collect moments, not just things.</div>
+      </div>
+      <div class="page-body">
+        <div class="section-heading">🗺 Upcoming Trips</div>
+        <div class="trip-card"><div class="trip-icon">🇮🇹</div><div class="trip-info"><div class="trip-dest">Rome & Amalfi Coast, Italy</div><div class="trip-date">September 12 – 22, 2026 · 10 nights</div><div class="trip-items"><span class="trip-tag">Flights ✓</span><span class="trip-tag">Hotel</span><span class="trip-tag">Itinerary</span><span class="trip-tag">Packing</span></div></div><span class="trip-status booked">Booked ✓</span></div>
+        <div class="trip-card"><div class="trip-icon">🇧🇦</div><div class="trip-info"><div class="trip-dest">Bali, Indonesia</div><div class="trip-date">January 8 – 18, 2027 · 10 nights</div><div class="trip-items"><span class="trip-tag">Research</span><span class="trip-tag">Budget</span><span class="trip-tag">Activities</span></div></div><span class="trip-status planning">Planning</span></div>
+        <div class="section-heading">✅ Italy Trip Checklist</div>
+        <div class="task-list" id="travel-tasks">
+          <div class="task-item" onclick="toggleTask(this)"><div class="task-check done">✓</div><div class="task-text done">Book flights (Ryanair — confirmed)</div><span class="task-tag sage">Done</span></div>
+          <div class="task-item" onclick="toggleTask(this)"><div class="task-check done">✓</div><div class="task-text done">Book Rome Airbnb (3 nights)</div><span class="task-tag sage">Done</span></div>
+          <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Book Amalfi hotel (7 nights)</div><span class="task-tag rose">To-Do</span></div>
+          <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Check travel insurance</div><span class="task-tag gold">To-Do</span></div>
+          <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Create packing list</div><span class="task-tag blue">To-Do</span></div>
+          <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div class="task-text">Learn 20 Italian phrases</div><span class="task-tag purple">Fun</span></div>
+        </div>
+        <div class="add-item-btn" onclick="addTask('travel-tasks')">＋ Add to checklist</div>
+      </div>
+    </div>
+
+    <!-- ══════════════════ BRAIN DUMP ══════════════════ -->
+    <div class="page-view" id="view-braindump">
+      <div class="page-header" style="padding-top:32px">
+        <div class="page-emoji">🧠</div>
+        <div class="page-title" contenteditable spellcheck="false">Brain Dump</div>
+        <div class="page-subtitle">Empty your mind. Clear your head. Think freely.</div>
+      </div>
+      <div class="page-body">
+        <div class="callout blue">
+          <span class="callout-icon">💡</span>
+          <span>This is your free-writing space. No rules, no structure. Just dump everything out of your head.</span>
+        </div>
+        <div style="border:1px solid var(--border);border-radius:8px;padding:16px;min-height:200px;font-size:14px;line-height:1.7;color:var(--text);outline:none;margin-bottom:12px;" contenteditable spellcheck="false">Things on my mind today…
+
+• Finish the digital product templates this week
+• Need to reply to Sarah's message  
+• The shop is looking amazing — share on Instagram!
+• Schedule time for deep work tomorrow morning
+• Pick up flowers for the apartment 🌸
+• Research Canva Pro vs Adobe for templates
+• Call mum on Sunday
+
+</div>
+        <div class="section-heading">💡 Ideas Parking Lot</div>
+        <div class="note-block">
+          <div class="note-title">New product ideas 💡</div>
+          <div class="note-date">July 14, 2026</div>
+          <div class="note-preview">Monthly budget spreadsheet · Self-care Sunday routine cards · 30-day manifestation challenge · Digital sticker pack for Notion · Meal planning template</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════ NOTES ══════════════════ -->
+    <div class="page-view" id="view-notes">
+      <div class="page-header" style="padding-top:32px">
+        <div class="page-emoji">📝</div>
+        <div class="page-title" contenteditable spellcheck="false">Notes</div>
+        <div class="page-subtitle">Capture every thought worth keeping.</div>
+      </div>
+      <div class="page-body">
+        <div class="note-block" onclick="navigate('braindump')">
+          <div class="note-title">📖 Book Notes — Atomic Habits</div>
+          <div class="note-date">Updated Jul 13, 2026</div>
+          <div class="note-preview">"You do not rise to the level of your goals. You fall to the level of your systems." — Key insight: habit stacking, 2-minute rule, environmental design…</div>
+        </div>
+        <div class="note-block">
+          <div class="note-title">🛍️ Shop Launch Planning Notes</div>
+          <div class="note-date">Updated Jul 12, 2026</div>
+          <div class="note-preview">Products to create: Wedding Planner ✓, Daily Planner ✓, Vision Board Kit ✓, Notion Template ✓... Marketing plan: Instagram Reels, Pinterest boards, email newsletter…</div>
+        </div>
+        <div class="note-block">
+          <div class="note-title">🌿 Morning Routine Redesign</div>
+          <div class="note-date">Updated Jul 10, 2026</div>
+          <div class="note-preview">5:45am wake · 6am water & vitamins · 6:15am journal · 6:45am yoga · 7:15am breakfast · 7:45am deep work block starts…</div>
+        </div>
+        <div class="note-block">
+          <div class="note-title">💰 Income Streams Brainstorm</div>
+          <div class="note-date">Updated Jul 8, 2026</div>
+          <div class="note-preview">1. Digital products (active) 2. Coaching (future) 3. Affiliate marketing (passive) 4. Online course (Q4 plan) 5. Notion template marketplace…</div>
+        </div>
+        <div class="add-item-btn">＋ New note</div>
+      </div>
+    </div>
+
+  </div><!-- end page-content -->
+</main>
+
+<script>
+  // ─── NAVIGATION ───
+  const pageNames = {
+    dashboard: 'Dashboard',
+    weekly: 'Weekly Plan',
+    goals: 'Goals',
+    habits: 'Habit Tracker',
+    gratitude: 'Gratitude',
+    fitness: 'Fitness',
+    tasks: 'Tasks',
+    projects: 'Projects',
+    content: 'Content Planner',
+    finance: 'Finance',
+    reading: 'Reading List',
+    travel: 'Travel',
+    braindump: 'Brain Dump',
+    notes: 'Notes'
+  };
+
+  function navigate(page) {
+    // Hide all
+    document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+    // Show target
+    const view = document.getElementById('view-' + page);
+    if (view) view.classList.add('active');
+
+    // Update breadcrumb
+    document.getElementById('breadcrumb-current').textContent = pageNames[page] || page;
+
+    // Update sidebar active
+    document.querySelectorAll('.nav-item').forEach(n => {
+      if (n.textContent.trim() === (pageNames[page] || page)) {
+        n.classList.add('active');
+      }
+    });
+
+    // Close mobile sidebar
+    document.querySelector('.sidebar').classList.remove('open');
+
+    // Scroll to top
+    document.querySelector('.page-content').scrollTop = 0;
+  }
+
+  // ─── TOGGLE TASK ───
+  function toggleTask(item) {
+    const check = item.querySelector('.task-check');
+    const text  = item.querySelector('.task-text');
+    if (!check || !text) return;
+    check.classList.toggle('done');
+    text.classList.toggle('done');
+    if (check.classList.contains('done')) check.textContent = '✓';
+    else check.textContent = '';
+  }
+
+  // ─── ADD TASK ───
+  function addTask(listId) {
+    const list = document.getElementById(listId);
+    if (!list) return;
+    const item = document.createElement('div');
+    item.className = 'task-item';
+    item.onclick = () => toggleTask(item);
+    item.innerHTML = `
+      <div class="task-check"></div>
+      <div class="task-text" contenteditable spellcheck="false" style="outline:none;min-width:100px;" 
+        onblur="if(!this.textContent.trim())this.closest('.task-item').remove()"
+        onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur()}"
+        >New task</div>
+    `;
+    list.appendChild(item);
+    setTimeout(() => {
+      const text = item.querySelector('.task-text');
+      text.focus();
+      const range = document.createRange();
+      range.selectNodeContents(text);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+    }, 50);
+  }
+
+  // ─── TOGGLE BLOCKS ───
+  document.querySelectorAll('.toggle-header').forEach(h => {
+    h.addEventListener('click', () => {
+      h.closest('.toggle-block').classList.toggle('open');
+    });
+  });
+
+  // ─── KEYBOARD SHORTCUT: / for search ───
+  document.addEventListener('keydown', e => {
+    if (e.key === '/' && !['INPUT','TEXTAREA'].includes(document.activeElement.tagName)
+        && !document.activeElement.isContentEditable) {
+      e.preventDefault();
+    }
+  });
+</script>
+</body>
+</html>

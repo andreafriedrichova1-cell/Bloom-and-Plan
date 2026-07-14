@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vision Board Kit — Bloom & Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    /* ====================================================
+       ROOT & THEME
+    ==================================================== */
+    :root {
+      --rose:       #C9927A;
+      --rose-dark:  #A8705A;
+      --rose-pale:  #F5EAE3;
+      --rose-light: #E8C4B3;
+      --sage:       #7E9E8A;
+      --sage-pale:  #EDF3EE;
+      --gold:       #C4A25A;
+      --gold-light: #E8D09A;
+      --cream:      #FAF7F2;
+      --ivory:      #F3EEE7;
+      --dark:       #3A3028;
+      --mid:        #6B5C4E;
+      --light:      #A0907E;
+      --border:     #E2D5C3;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans:  'Jost', sans-serif;
+      --script: 'Great Vibes', cursive;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--sans);
+      background: #EDE8E0;
+      color: var(--dark);
+    }
+
+    /* ====================================================
+       PAGE / PRINT SETUP
+    ==================================================== */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      background: #fff;
+      margin: 0 auto 30px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media print {
+      body { background: #fff; }
+      .page {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0;
+        box-shadow: none;
+        page-break-after: always;
+      }
+      .no-print { display: none !important; }
+      @page { size: A4; margin: 0; }
+    }
+
+    /* ====================================================
+       PREVIEW TOOLBAR (no-print)
+    ==================================================== */
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--dark);
+      color: #fff;
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--sans);
+    }
+
+    .toolbar-brand {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+
+    .toolbar-brand span { color: var(--rose-light); }
+
+    .toolbar-info {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .print-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 22px;
+      background: var(--rose);
+      color: #fff;
+      border: none;
+      border-radius: 100px;
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .print-btn:hover { background: var(--rose-dark); }
+
+    /* ====================================================
+       SHARED DECORATIVE ELEMENTS
+    ==================================================== */
+    .corner-botanical {
+      position: absolute;
+      pointer-events: none;
+    }
+    .corner-botanical img { display: block; }
+
+    .page-footer-brand {
+      position: absolute;
+      bottom: 8mm;
+      right: 12mm;
+      font-family: var(--serif);
+      font-size: 8pt;
+      font-style: italic;
+      color: var(--light);
+      letter-spacing: 0.05em;
+    }
+
+    .page-number {
+      position: absolute;
+      bottom: 8mm;
+      left: 12mm;
+      font-family: var(--sans);
+      font-size: 7pt;
+      color: var(--border);
+      letter-spacing: 0.1em;
+    }
+
+    .thin-line {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .gold-line {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 0 auto;
+    }
+
+    .small-gold-line {
+      display: inline-block;
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      vertical-align: middle;
+      margin: 0 8px;
+    }
+
+    .section-label {
+      font-size: 7pt;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--rose);
+      font-family: var(--sans);
+    }
+
+    /* Write-in line */
+    .write-line {
+      border: none;
+      border-bottom: 1px solid var(--border);
+      width: 100%;
+      display: block;
+      margin-bottom: 8px;
+      height: 22px;
+      background: transparent;
+    }
+
+    /* ====================================================
+       PAGE 1 — COVER
+    ==================================================== */
+    #page-cover {
+      background: var(--cream);
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .cover-bg-stripe {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 10mm;
+      background: var(--rose);
+    }
+
+    .cover-bg-stripe-bottom {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 10mm;
+      background: var(--rose);
+    }
+
+    .cover-botanical {
+      position: absolute;
+      top: 10mm;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150mm;
+    }
+
+    .cover-main {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4mm;
+      margin-top: 60mm;
+    }
+
+    .cover-eyebrow {
+      font-size: 7.5pt;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--rose);
+      font-family: var(--sans);
+    }
+
+    .cover-title {
+      font-family: var(--script);
+      font-size: 52pt;
+      color: var(--dark);
+      line-height: 1.1;
+    }
+
+    .cover-subtitle {
+      font-family: var(--serif);
+      font-size: 15pt;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--mid);
+      letter-spacing: 0.06em;
+    }
+
+    .cover-gold-divider {
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 4mm auto;
+    }
+
+    .cover-tagline {
+      font-family: var(--sans);
+      font-size: 8.5pt;
+      font-weight: 300;
+      color: var(--light);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .cover-includes {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5mm;
+      margin-top: 6mm;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 5mm 8mm;
+    }
+
+    .cover-includes-title {
+      font-size: 7pt;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-family: var(--sans);
+      margin-bottom: 2mm;
+    }
+
+    .cover-includes li {
+      list-style: none;
+      font-size: 8.5pt;
+      color: var(--mid);
+      font-family: var(--sans);
+      font-weight: 300;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cover-includes li::before {
+      content: '✦';
+      color: var(--gold);
+      font-size: 6pt;
+    }
+
+    .cover-logo {
+      position: absolute;
+      bottom: 18mm;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--serif);
+      font-size: 9pt;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+
+    /* ====================================================
+       PAGE 2 — WELCOME / HOW TO USE
+    ==================================================== */
+    #page-welcome {
+      padding: 16mm 18mm 14mm;
+    }
+
+    .welcome-header {
+      text-align: center;
+      margin-bottom: 8mm;
+    }
+
+    .welcome-title {
+      font-family: var(--script);
+      font-size: 36pt;
+      color: var(--dark);
+      line-height: 1.1;
+      margin: 2mm 0;
+    }
+
+    .welcome-body {
+      font-family: var(--serif);
+      font-size: 10.5pt;
+      font-weight: 300;
+      color: var(--mid);
+      line-height: 1.7;
+      text-align: center;
+      max-width: 140mm;
+      margin: 0 auto 8mm;
+    }
+
+    .how-to-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5mm;
+      margin-top: 8mm;
+    }
+
+    .how-to-card {
+      background: var(--cream);
+      border-radius: 8px;
+      padding: 5mm;
+      border-left: 3px solid var(--rose);
+    }
+
+    .how-to-num {
+      font-family: var(--serif);
+      font-size: 20pt;
+      font-weight: 300;
+      color: var(--rose-light);
+      line-height: 1;
+      margin-bottom: 1mm;
+    }
+
+    .how-to-title {
+      font-family: var(--sans);
+      font-size: 8.5pt;
+      font-weight: 600;
+      color: var(--dark);
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5mm;
+      text-transform: uppercase;
+    }
+
+    .how-to-text {
+      font-family: var(--sans);
+      font-size: 7.5pt;
+      font-weight: 300;
+      color: var(--mid);
+      line-height: 1.5;
+    }
+
+    .welcome-quote {
+      text-align: center;
+      margin-top: 8mm;
+      padding: 5mm 10mm;
+      background: var(--rose-pale);
+      border-radius: 8px;
+    }
+
+    .welcome-quote p {
+      font-family: var(--serif);
+      font-size: 13pt;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--rose-dark);
+      line-height: 1.5;
+    }
+
+    .welcome-quote cite {
+      display: block;
+      font-family: var(--sans);
+      font-size: 7pt;
+      font-style: normal;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--light);
+      margin-top: 2mm;
+    }
+
+    /* ====================================================
+       PAGE 3 — MY VISION BOARD (photo collage layout)
+    ==================================================== */
+    #page-vision-board {
+      padding: 12mm 14mm 14mm;
+    }
+
+    .vision-board-header {
+      text-align: center;
+      margin-bottom: 6mm;
+    }
+
+    .vision-board-title {
+      font-family: var(--script);
+      font-size: 34pt;
+      color: var(--dark);
+    }
+
+    .vision-board-subtitle {
+      font-family: var(--sans);
+      font-size: 7.5pt;
+      color: var(--light);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-top: 1mm;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 44mm);
+      gap: 3mm;
+      margin-bottom: 6mm;
+    }
+
+    .photo-slot {
+      background: var(--ivory);
+      border-radius: 6px;
+      border: 1.5px dashed var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2mm;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .photo-slot.wide { grid-column: span 2; }
+    .photo-slot.tall { grid-row: span 2; }
+
+    .photo-slot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .photo-slot-label {
+      font-size: 6.5pt;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--border);
+      font-family: var(--sans);
+    }
+
+    .photo-slot-icon {
+      font-size: 18pt;
+      opacity: 0.3;
+    }
+
+    .photo-slot-category {
+      position: absolute;
+      bottom: 4px;
+      left: 0; right: 0;
+      text-align: center;
+      font-size: 6pt;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--rose-dark);
+      background: rgba(255,255,255,0.85);
+      padding: 2px 6px;
+    }
+
+    .vision-board-my-word {
+      display: flex;
+      align-items: center;
+      gap: 5mm;
+    }
+
+    .vision-board-my-word label {
+      font-size: 7.5pt;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--rose);
+      white-space: nowrap;
+      font-family: var(--sans);
+    }
+
+    .vision-board-word-line {
+      flex: 1;
+      border: none;
+      border-bottom: 1.5px solid var(--rose-light);
+      height: 22px;
+    }
+
+    /* ====================================================
+       PAGE 4 — VISION 2026 (Goals Overview)
+    ==================================================== */
+    #page-vision-year {
+      padding: 14mm 18mm 14mm;
+    }
+
+    .year-header {
+      text-align: center;
+      margin-bottom: 7mm;
+    }
+
+    .year-title {
+      font-family: var(--serif);
+      font-size: 28pt;
+      font-weight: 300;
+      color: var(--dark);
+      letter-spacing: 0.06em;
+    }
+
+    .year-title strong {
+      font-weight: 500;
+      color: var(--rose);
+    }
+
+    .life-areas-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5mm;
+    }
+
+    .life-area {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 5mm;
+      background: #fff;
+    }
+
+    .life-area-header {
+      display: flex;
+      align-items: center;
+      gap: 3mm;
+      margin-bottom: 3mm;
+      padding-bottom: 2.5mm;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .life-area-icon {
+      font-size: 13pt;
+      width: 8mm;
+      text-align: center;
+    }
+
+    .life-area-name {
+      font-family: var(--sans);
+      font-size: 8pt;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--dark);
+    }
+
+    .life-area .write-line {
+      height: 18px;
+      margin-bottom: 5px;
+    }
+
+    .life-area-prompt {
+      font-size: 6.5pt;
+      color: var(--light);
+      font-style: italic;
+      margin-bottom: 3mm;
+      font-family: var(--serif);
+    }
+
+    /* ====================================================
+       PAGE 5 — GOALS PLANNER (detailed)
+    ==================================================== */
+    #page-goals {
+      padding: 13mm 18mm 14mm;
+    }
+
+    .goals-header {
+      text-align: center;
+      margin-bottom: 7mm;
+    }
+
+    .goals-title {
+      font-family: var(--serif);
+      font-size: 26pt;
+      font-weight: 400;
+      color: var(--dark);
+    }
+
+    .goal-block {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 5mm;
+      margin-bottom: 4mm;
+      background: var(--cream);
+      position: relative;
+    }
+
+    .goal-block-accent {
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 100%;
+      border-radius: 8px 0 0 8px;
+    }
+
+    .goal-block-inner { margin-left: 4mm; }
+
+    .goal-num {
+      font-family: var(--serif);
+      font-size: 22pt;
+      font-weight: 300;
+      color: var(--rose-light);
+      line-height: 1;
+      float: right;
+      margin-top: -2mm;
+    }
+
+    .goal-label {
+      font-size: 7pt;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rose);
+      font-family: var(--sans);
+      margin-bottom: 1.5mm;
+    }
+
+    .goal-main-line {
+      border: none;
+      border-bottom: 1.5px solid var(--rose-light);
+      width: 100%;
+      display: block;
+      height: 24px;
+      font-family: var(--serif);
+      font-size: 12pt;
+      font-style: italic;
+      color: var(--dark);
+      background: transparent;
+      margin-bottom: 3mm;
+    }
+
+    .goal-sub-rows {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2mm;
+    }
+
+    .goal-sub-label {
+      font-size: 6.5pt;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mid);
+      font-family: var(--sans);
+      margin-bottom: 1mm;
+    }
+
+    .goal-sub-line {
+      border: none;
+      border-bottom: 1px solid var(--border);
+      width: 100%;
+      display: block;
+      height: 18px;
+      background: transparent;
+    }
+
+    /* ====================================================
+       PAGE 6 — AFFIRMATION CARDS
+    ==================================================== */
+    #page-affirmation-cards {
+      padding: 12mm 14mm;
+    }
+
+    .cards-header {
+      text-align: center;
+      margin-bottom: 7mm;
+    }
+
+    .cards-title {
+      font-family: var(--script);
+      font-size: 34pt;
+      color: var(--dark);
+    }
+
+    .cards-subtitle {
+      font-size: 7.5pt;
+      color: var(--light);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-family: var(--sans);
+      margin-top: 1mm;
+    }
+
+    .cards-cut-hint {
+      font-size: 6.5pt;
+      color: var(--border);
+      font-style: italic;
+      text-align: center;
+      margin-bottom: 5mm;
+      font-family: var(--serif);
+    }
+
+    .affirmation-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4mm;
+    }
+
+    .aff-card {
+      border-radius: 8px;
+      padding: 5mm 4mm;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 42mm;
+      position: relative;
+      border: 1.5px solid rgba(255,255,255,0.6);
+    }
+
+    .aff-card-floral {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .aff-card-floral img {
+      width: 80%;
+      height: auto;
+      object-fit: contain;
+      opacity: 0.15;
+      position: absolute;
+      bottom: -5px;
+      right: -10px;
+    }
+
+    .aff-card-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .aff-small-text {
+      font-size: 6pt;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 2mm;
+      font-family: var(--sans);
+      opacity: 0.6;
+    }
+
+    .aff-main-text {
+      font-family: var(--script);
+      font-size: 22pt;
+      line-height: 1.1;
+    }
+
+    .aff-star { font-size: 9pt; margin-top: 2mm; opacity: 0.5; }
+
+    /* Card color themes */
+    .aff-rose     { background: linear-gradient(145deg, #E8C4B3, #C9927A22); color: #6B3D2A; }
+    .aff-sage     { background: linear-gradient(145deg, #B5CDB9, #7E9E8A22); color: #2D5040; }
+    .aff-gold     { background: linear-gradient(145deg, #E8D09A, #C4A25A22); color: #5A3D00; }
+    .aff-cream    { background: linear-gradient(145deg, #F3EEE7, #C9927A11); color: #5C4535; }
+    .aff-dusty    { background: linear-gradient(145deg, #D4B5A0, #A07560); color: #fff; }
+    .aff-blush    { background: linear-gradient(145deg, #F0D6CC, #E8A090); color: #6B2A2A; }
+    .aff-darkrose { background: linear-gradient(145deg, #A8705A, #7D4535); color: #fff; }
+    .aff-mist     { background: linear-gradient(145deg, #D5E2D8, #9DBBA5); color: #1D4030; }
+    .aff-ivory    { background: linear-gradient(145deg, #FAF7F2, #E8DFD0); color: #4A3828; border: 1.5px solid #E2D5C3; }
+
+    /* ====================================================
+       PAGE 7 — MANIFESTATION JOURNAL PROMPTS
+    ==================================================== */
+    #page-manifest {
+      padding: 14mm 18mm 14mm;
+    }
+
+    .manifest-header {
+      text-align: center;
+      margin-bottom: 7mm;
+    }
+
+    .manifest-title {
+      font-family: var(--script);
+      font-size: 36pt;
+      color: var(--dark);
+    }
+
+    .manifest-intro {
+      font-family: var(--serif);
+      font-size: 9.5pt;
+      font-style: italic;
+      color: var(--mid);
+      text-align: center;
+      line-height: 1.6;
+      max-width: 140mm;
+      margin: 0 auto 7mm;
+    }
+
+    .prompt-block {
+      margin-bottom: 5mm;
+    }
+
+    .prompt-q {
+      font-family: var(--serif);
+      font-size: 10pt;
+      font-weight: 500;
+      color: var(--dark);
+      margin-bottom: 2mm;
+      display: flex;
+      align-items: baseline;
+      gap: 2mm;
+    }
+
+    .prompt-icon { color: var(--rose); font-size: 8pt; }
+
+    .prompt-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .prompt-line {
+      border: none;
+      border-bottom: 1px solid var(--border);
+      height: 20px;
+      width: 100%;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    /* ====================================================
+       PAGE 8 — MONTHLY ACTION PLAN
+    ==================================================== */
+    #page-monthly {
+      padding: 13mm 18mm 14mm;
+    }
+
+    .monthly-header {
+      text-align: center;
+      margin-bottom: 6mm;
+    }
+
+    .monthly-title {
+      font-family: var(--serif);
+      font-size: 26pt;
+      font-weight: 300;
+      color: var(--dark);
+    }
+
+    .month-name-row {
+      display: flex;
+      align-items: center;
+      gap: 5mm;
+      margin-bottom: 6mm;
+      background: var(--rose-pale);
+      padding: 3.5mm 6mm;
+      border-radius: 8px;
+    }
+
+    .month-name-label {
+      font-size: 7pt;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rose);
+      white-space: nowrap;
+      font-family: var(--sans);
+    }
+
+    .month-name-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-family: var(--script);
+      font-size: 18pt;
+      color: var(--dark);
+      border-bottom: 1px solid var(--rose-light);
+      height: 28px;
+    }
+
+    .monthly-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5mm;
+      margin-bottom: 5mm;
+    }
+
+    .monthly-col-title {
+      font-size: 7pt;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-family: var(--sans);
+      margin-bottom: 2.5mm;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 3mm;
+      margin-bottom: 2.5mm;
+    }
+
+    .checkbox-box {
+      width: 12px;
+      height: 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .checkbox-line {
+      flex: 1;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      height: 16px;
+    }
+
+    .monthly-gratitude {
+      background: var(--sage-pale);
+      border-radius: 8px;
+      padding: 4mm 5mm;
+      margin-top: 2mm;
+    }
+
+    .monthly-gratitude-title {
+      font-size: 7pt;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-family: var(--sans);
+      margin-bottom: 2.5mm;
+    }
+
+    .monthly-gratitude-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3mm;
+    }
+
+    .grat-slot {
+      background: #fff;
+      border-radius: 5px;
+      padding: 3mm;
+    }
+
+    .grat-num {
+      font-family: var(--serif);
+      font-size: 10pt;
+      font-weight: 300;
+      color: var(--sage);
+      margin-bottom: 1mm;
+    }
+
+    .grat-line {
+      border: none;
+      border-bottom: 1px solid var(--border);
+      height: 16px;
+      width: 100%;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    /* ====================================================
+       PAGE 9 — SELF-LOVE CHECKLIST + AFFIRMATIONS
+    ==================================================== */
+    #page-selflove {
+      padding: 13mm 16mm 13mm;
+    }
+
+    .selflove-header {
+      text-align: center;
+      margin-bottom: 6mm;
+    }
+
+    .selflove-title {
+      font-family: var(--script);
+      font-size: 36pt;
+      color: var(--rose-dark);
+    }
+
+    .two-col-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6mm;
+    }
+
+    .checklist-section {
+      background: var(--rose-pale);
+      border-radius: 10px;
+      padding: 5mm;
+    }
+
+    .checklist-title {
+      font-size: 7pt;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rose-dark);
+      font-family: var(--sans);
+      margin-bottom: 4mm;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 3mm;
+      margin-bottom: 3mm;
+    }
+
+    .check-circle {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1.5px solid var(--rose);
+      flex-shrink: 0;
+    }
+
+    .check-text {
+      font-size: 8pt;
+      color: var(--dark);
+      font-family: var(--sans);
+      font-weight: 300;
+    }
+
+    .affirmations-section {
+      background: var(--cream);
+      border-radius: 10px;
+      padding: 5mm;
+      border: 1px solid var(--border);
+    }
+
+    .affirmations-title {
+      font-size: 7pt;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--sage);
+      font-family: var(--sans);
+      margin-bottom: 4mm;
+    }
+
+    .affirmation-write {
+      margin-bottom: 3.5mm;
+    }
+
+    .aff-prompt {
+      font-size: 7pt;
+      color: var(--light);
+      font-style: italic;
+      font-family: var(--serif);
+      margin-bottom: 1mm;
+    }
+
+    .aff-write-line {
+      border: none;
+      border-bottom: 1px solid var(--border);
+      width: 100%;
+      height: 18px;
+      display: block;
+    }
+
+    .full-width-section {
+      margin-top: 5mm;
+      background: var(--ivory);
+      border-radius: 10px;
+      padding: 5mm;
+      border: 1px solid var(--border);
+    }
+
+    .full-width-title {
+      font-size: 7pt;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-family: var(--sans);
+      margin-bottom: 3mm;
+    }
+
+    .reflection-lines {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 8mm;
+    }
+
+    /* ====================================================
+       PAGE 10 — DECORATIVE BACK / BOTANICAL PATTERNS
+    ==================================================== */
+    #page-back {
+      background: var(--dark);
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+    }
+
+    .back-overlay-botanical {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.08;
+    }
+
+    .back-overlay-botanical img {
+      width: 200mm;
+      height: 200mm;
+      object-fit: contain;
+    }
+
+    .back-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5mm;
+    }
+
+    .back-title {
+      font-family: var(--script);
+      font-size: 52pt;
+      color: var(--rose-light);
+      line-height: 1;
+    }
+
+    .back-tagline {
+      font-family: var(--serif);
+      font-size: 12pt;
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.08em;
+    }
+
+    .back-divider {
+      width: 100px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 2mm 0;
+    }
+
+    .back-website {
+      font-family: var(--sans);
+      font-size: 8pt;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .back-social {
+      display: flex;
+      gap: 6mm;
+      font-size: 7.5pt;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      font-family: var(--sans);
+    }
+
+    .back-license {
+      position: absolute;
+      bottom: 10mm;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 6.5pt;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-family: var(--sans);
+      white-space: nowrap;
+    }
+
+    .back-stars {
+      color: var(--gold-light);
+      font-size: 9pt;
+      letter-spacing: 3px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOOLBAR (no-print) -->
+<div class="toolbar no-print">
+  <div class="toolbar-brand">Bloom <span>&</span> Plan</div>
+  <div class="toolbar-info">Vision Board Kit · 10 Pages · Print-Ready A4</div>
+  <button class="print-btn" onclick="window.print()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    Print / Save as PDF
+  </button>
+</div>
+
+<!-- ============================================================
+     PAGE 1 — COVER
+============================================================ -->
+<div class="page" id="page-cover">
+  <div class="cover-bg-stripe"></div>
+  <div class="cover-bg-stripe-bottom"></div>
+
+  <div class="corner-botanical" style="top:10mm; left:50%; transform:translateX(-50%); width:160mm; z-index:1">
+    <img src="floral-wreath.jpg" alt="" style="width:100%; opacity:0.9;" />
+  </div>
+
+  <div class="cover-main">
+    <div class="cover-eyebrow">Bloom &amp; Plan · Digital Download</div>
+    <div class="cover-title">My Vision<br>Board Kit</div>
+    <div class="cover-gold-divider"></div>
+    <div class="cover-subtitle">Manifest · Dream · Achieve</div>
+    <div class="cover-tagline">Printable · A4 &amp; US Letter · Personal Use</div>
+
+    <div class="cover-includes">
+      <div class="cover-includes-title">What's Inside</div>
+      <ul>
+        <li>Welcome &amp; How-To Guide</li>
+        <li>Photo Vision Board Layout</li>
+        <li>Vision 2026 — Life Areas Overview</li>
+        <li>Detailed Goals Planner (3 goals)</li>
+        <li>9 Printable Affirmation Cards</li>
+        <li>Manifestation Journal Prompts</li>
+        <li>Monthly Action Plan</li>
+        <li>Self-Love Checklist &amp; Affirmations</li>
+        <li>Decorative Back Page</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cover-logo">© 2026 Bloom &amp; Plan · For Personal Use Only</div>
+</div>
+
+<!-- ============================================================
+     PAGE 2 — WELCOME
+============================================================ -->
+<div class="page" id="page-welcome">
+  <div class="corner-botanical" style="top:-5mm; right:-10mm; width:55mm; opacity:0.5; transform:scaleX(-1)">
+    <img src="corner-botanical.jpg" alt="" style="width:100%;" />
+  </div>
+
+  <div class="welcome-header">
+    <div class="section-label">✦ Welcome ✦</div>
+    <div class="welcome-title">Hello, Dreamer</div>
+    <div class="gold-line"></div>
+  </div>
+
+  <p class="welcome-body">
+    You are holding something powerful. This Vision Board Kit is your sacred space to dream bigger, set intentions, and call in the life you truly deserve. There are no rules here — only possibility.
+    <br><br>
+    Take your time with each page. Light a candle, make yourself a cup of tea, and give yourself the gift of dreaming freely.
+  </p>
+
+  <div class="thin-line" style="margin-bottom:6mm;"></div>
+
+  <div class="section-label" style="text-align:center; margin-bottom:4mm;">How To Use This Kit</div>
+
+  <div class="how-to-grid">
+    <div class="how-to-card">
+      <div class="how-to-num">01</div>
+      <div class="how-to-title">Print Your Pages</div>
+      <div class="how-to-text">Print on white cardstock (160–200gsm recommended) for a premium feel. Use standard A4 or US Letter paper for everyday printing.</div>
+    </div>
+    <div class="how-to-card">
+      <div class="how-to-num">02</div>
+      <div class="how-to-title">Create Your Vision Board</div>
+      <div class="how-to-text">Gather magazines, printed photos, or print images from online. Cut and collage them into the photo grid. Add your word of the year.</div>
+    </div>
+    <div class="how-to-card">
+      <div class="how-to-num">03</div>
+      <div class="how-to-title">Set Your Intentions</div>
+      <div class="how-to-text">Work through the goal planner and journal prompts slowly. Write in pen, answer honestly, and dream without limits.</div>
+    </div>
+    <div class="how-to-card">
+      <div class="how-to-num">04</div>
+      <div class="how-to-title">Cut Your Affirmation Cards</div>
+      <div class="how-to-text">Cut along the card borders and place them on your desk, mirror, journal, or car. Read them daily. Let them sink in.</div>
+    </div>
+  </div>
+
+  <div class="welcome-quote" style="margin-top:6mm;">
+    <p>"She designed a life she loved — and it started with a dream, a pen, and the courage to believe."</p>
+    <cite>— Bloom &amp; Plan</cite>
+  </div>
+
+  <div class="page-number">2</div>
+  <div class="page-footer-brand">Bloom &amp; Plan · Vision Board Kit</div>
+</div>
+
+<!-- ============================================================
+     PAGE 3 — MY VISION BOARD
+============================================================ -->
+<div class="page" id="page-vision-board">
+  <div class="vision-board-header">
+    <div class="section-label">✦ Cut · Collage · Dream ✦</div>
+    <div class="vision-board-title">My Vision Board</div>
+    <div class="vision-board-subtitle">Paste or draw your dream life below</div>
+    <div class="gold-line" style="margin-top:2mm;"></div>
+  </div>
+
+  <div class="photo-grid">
+    <!-- Row 1 -->
+    <div class="photo-slot wide">
+      <img src="lifestyle-collage.jpg" alt="Lifestyle inspiration" style="opacity:0.55;" />
+      <div class="photo-slot-category">My Dream Life</div>
+    </div>
+    <div class="photo-slot">
+      <div class="photo-slot-icon">🏠</div>
+      <div class="photo-slot-label">Dream Home</div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="photo-slot">
+      <div class="photo-slot-icon">💼</div>
+      <div class="photo-slot-label">Career</div>
+    </div>
+    <div class="photo-slot tall">
+      <div class="photo-slot-icon">✈️</div>
+      <div class="photo-slot-label">Travel</div>
+    </div>
+    <div class="photo-slot">
+      <div class="photo-slot-icon">💕</div>
+      <div class="photo-slot-label">Relationships</div>
+    </div>
+
+    <!-- Row 3 -->
+    <div class="photo-slot">
+      <div class="photo-slot-icon">🌿</div>
+      <div class="photo-slot-label">Health</div>
+    </div>
+    <div class="photo-slot">
+      <div class="photo-slot-icon">✨</div>
+      <div class="photo-slot-label">Personal Growth</div>
+    </div>
+  </div>
+
+  <div class="vision-board-my-word">
+    <label>My Word of the Year:</label>
+    <div class="vision-board-word-line"></div>
+  </div>
+
+  <div class="page-number">3</div>
+  <div class="page-footer-brand">Bloom &amp; Plan · Vision Board Kit</div>
+</div>
+
+<!-- ============================================================
+     PAGE 4 — VISION 2026
+============================================================ -->
+<div class="page" id="page-vision-year">
+  <div class="corner-botanical" style="top:-5mm; left:-10mm; width:50mm; opacity:0.45;">
+    <img src="corner-botanical.jpg" alt="" style="width:100%;" />
+  </div>
+
+  <div class="year-header">
+    <div class="section-label">✦ Big Picture ✦</div>
+    <div class="year-title">Vision <strong>2026</strong></div>
+    <div class="gold-line" style="margin-top:2mm;"></div>
+  </div>
+
+  <div class="life-areas-grid">
+
+    <div class="life-area">
+      <div class="life-area-header">
+        <div class="life-area-icon">💰</div>
+        <div class="life-area-name" style="color:var(--gold);">Money &amp; Career</div>
+      </div>
+      <div class="life-area-prompt">My income goal this year is…</div>
+      <div class="write-line"></div>
+      <div class="life-area-prompt">My dream career achievement is…</div>
+      <div class="write-line"></div>
+      <div class="write-line"></div>
+    </div>
+
+    <div class="life-area">
+      <div class="life-area-header">
+        <div class="life-area-icon">💕</div>
+        <div class="life-area-name" style="color:var(--rose);">Love &amp; Relationships</div>
+      </div>
+      <div class="life-area-prompt">My relationship intentions are…</div>
+      <div class="write-line"></div>
+      <div class="life-area-prompt">I want to nurture these connections…</div>
+      <div class="write-line"></div>
+      <div class="write-line"></div>
+    </div>
+
+    <div class="life-area">
+      <div class="life-area-header">
+        <div class="life-area-icon">🌿</div>
+        <div class="life-area-name" style="color:var(--sage);">Health &amp; Wellness</div>
+      </div>
+      <div class="life-area-prompt">My health goal this year is…</div>
+      <div class="write-line"></div>
+      <div class="life-area-prompt">I want to feel more…</div>
+      <div class="write-line"></div>
+      <div class="write-line"></div>
+    </div>
+
+    <div class="life-area">
+      <div class="life-area-header">
+        <div class="life-area-icon">🏠</div>
+        <div class="life-area-name">Home &amp; Lifestyle</div>
+      </div>
+      <div class="life-area-prompt">My dream living situation is…</div>
+      <div class="write-line"></div>
+      <div class="life-area-prompt">I want my home to feel…</div>
+      <div class="write-line"></div>
+      <div class="write-line"></div>
+    </div>
+
+    <div class="life-area">
+      <div class="life-area-header">
+        <div class="life-area-icon">✨</div>
+        <div class="life-area-name" style="color:var(--mid);">Personal Growth</div>
+      </div>
+      <div class="life-area-prompt">I want to learn or develop…</div>
+      <div class="write-line"></div>
+      <div class="life-area-prompt">My most important habit will be…</div>
+      <div class="write-line"></div>
+      <div class="write-line"></div>
+    </div>
+
+    <div class="life-area">
+      <div class="life-area-header">
+        <div class="life-area-icon">✈️</div>
+        <div class="life-area-name" style="color:var(--rose-dark);">Travel &amp; Adventure</div>
+      </div>
+      <div class="life-area-prompt">Places I want to visit…</div>
+      <div class="write-line"></div>
+      <div class="life-area-prompt">My biggest adventure this year…</div>
+      <div class="write-line"></div>
+      <div class="write-line"></div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:5mm; text-align:center; background:var(--rose-pale); border-radius:8px; padding:4mm 8mm;">
+    <div class="section-label" style="margin-bottom:2mm;">My #1 Priority This Year</div>
+    <div class="write-line" style="max-width:150mm; margin:0 auto;"></div>
+  </div>
+
+  <div class="page-number">4</div>
+  <div class="page-footer-brand">Bloom &amp; Plan · Vision Board Kit</div>
+</div>
+
+<!-- ============================================================
+     PAGE 5 — GOALS PLANNER
+============================================================ -->
+<div class="page" id="page-goals">
+  <div class="goals-header">
+    <div class="section-label">✦ Make It Happen ✦</div>
+    <div class="goals-title">Goals Planner</div>
+    <div class="gold-line" style="margin-top:2mm;"></div>
+  </div>
+
+  <!-- Goal 1 -->
+  <div class="goal-block">
+    <div class="goal-block-accent" style="background:var(--rose);"></div>
+    <div class="goal-block-inner">
+      <div class="goal-num">01</div>
+      <div class="goal-label">Goal #1</div>
+      <div class="goal-main-line" contenteditable style="font-family:var(--serif); font-size:12pt; font-style:italic; border-bottom:1.5px solid var(--rose-light); outline:none; cursor:text;"></div>
+      <div class="goal-sub-rows">
+        <div>
+          <div class="goal-sub-label">Why is this important?</div>
+          <div class="goal-sub-line"></div>
+          <div class="goal-sub-line" style="margin-top:3px;"></div>
+        </div>
+        <div>
+          <div class="goal-sub-label">Deadline</div>
+          <div class="goal-sub-line"></div>
+          <div class="goal-sub-label" style="margin-top:3mm;">1st Action Step</div>
+          <div class="goal-sub-line"></div>
+        </div>
+        <div style="grid-column:span 2;">
+          <div class="goal-sub-label">Steps to Achieve It</div>
+          <div class="goal-sub-line"></div>
+          <div class="goal-sub-line" style="margin-top:3px;"></div>
+          <div class="goal-sub-line" style="margin-top:3px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Goal 2 -->
+  <div class="goal-block">
+    <div class="goal-block-accent" style="background:var(--sage);"></div>
+    <div class="goal-block-inner">
+      <div class="goal-num" style="color:var(--sage-pale);">02</div>
+      <div class="goal-label" style="color:var(--sage);">Goal #2</div>
+      <div class="goal-main-line" style="border-bottom-color:var(--sage-pale);"></div>
+      <div class="goal-sub-rows">
+        <div>
+          <div class="goal-sub-label">Why is this important?</div>
+          <div class="goal-sub-line"></div>
+          <div class="goal-sub-line" style="margin-top:3px;"></div>
+        </div>
+        <div>
+          <div class="goal-sub-label">Deadline</div>
+          <div class="goal-sub-line"></div>
+          <div class="goal-sub-label" style="margin-top:3mm;">1st Action Step</div>
+          <div class="goal-sub-line"></div>
+        </div>
+        <div style="grid-column:span 2;">
+          <div class="goal-sub-label">Steps to Achieve It</div>
+          <div class="goal-sub-line"></div>
+          <div class="goal-sub-line" style="margin-top:3px;"></div>
+          <div class="goal-sub-line" style="margin-top:3px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Goal 3 -->
+  <div class="goal-block">
+    <div class="goal-block-accent" style="background:var(--gold);"></div>
+    <div class="goal-block-inner">
+      <div class="goal-num" style="color:var(--gold-light);">03</div>
+      <div class="goal-label" style="color:var(--gold);">Goal #3</div>
+      <div class="goal-main-line" style="border-bottom-color:var(--gold-light);"></div>
+      <div class="goal-sub-rows">
+        <div>
+          <div class="goal-sub-label">Why is this important?</div>
+          <div class="goal-sub-line"></div>
+          <div class="goal-sub-line" style="margin-top:3px;"></div>
+        </div>
+        <div>
+          <div class="goal-sub-label">Deadline</div>
+          <div class="goal-sub-line"></div>
+          <div class="goal-sub-label" style="margin-top:3mm;">1st Action Step</div>
+          <div class="goal-sub-line"></div>
+        </div>
+        <div style="grid-column:span 2;">
+          <div class="goal-sub-label">Steps to Achieve It</div>
+          <div class="goal-sub-line"></div>
+          <div class="goal-sub-line" style="margin-top:3px;"></div>
+          <div class="goal-sub-line" style="margin-top:3px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-number">5</div>
+  <div class="page-footer-brand">Bloom &amp; Plan · Vision Board Kit</div>
+</div>
+
+<!-- ============================================================
+     PAGE 6 — AFFIRMATION CARDS
+============================================================ -->
+<div class="page" id="page-affirmation-cards">
+  <div class="cards-header">
+    <div class="section-label">✦ Cut &amp; Display ✦</div>
+    <div class="cards-title">Affirmation Cards</div>
+  </div>
+  <div class="cards-cut-hint">✂ Cut along the card borders and place on your mirror, desk, or journal</div>
+
+  <div class="affirmation-grid">
+
+    <div class="aff-card aff-rose">
+      <div class="aff-card-floral"><img src="floral-wreath.jpg" alt="" /></div>
+      <div class="aff-card-content">
+        <div class="aff-small-text">I am</div>
+        <div class="aff-main-text">Worthy</div>
+        <div class="aff-star">✦ ✦ ✦</div>
+      </div>
+    </div>
+
+    <div class="aff-card aff-sage">
+      <div class="aff-card-content">
+        <div class="aff-small-text">I choose to</div>
+        <div class="aff-main-text">Trust the Process</div>
+        <div class="aff-star">✦ ✦ ✦</div>
+      </div>
+    </div>
+
+    <div class="aff-card aff-gold">
+      <div class="aff-card-floral"><img src="floral-wreath.jpg" alt="" /></div>
+      <div class="aff-card-content">
+        <div class="aff-small-text">I dare to</div>
+        <div class="aff-main-text">Dream Big</div>
+        <div class="aff-star">✦ ✦ ✦</div>
+      </div>
+    </div>
+
+    <div class="aff-card aff-cream">
+      <div class="aff-card-content">
+        <div class="aff-small-text">I choose to</div>
+        <div class="aff-main-text">Radiate Positivity</div>
+        <div class="aff-star">✦ ✦ ✦</div>
+      </div>
+    </div>
+
+    <div class="aff-card aff-darkrose">
+      <div class="aff-card-floral"><img src="floral-wreath.jpg" alt="" /></div>
+      <div class="aff-card-content">
+        <div class="aff-small-text">I am becoming</div>
+        <div class="aff-main-text">Magnetic</div>
+        <div class="aff-star">✦ ✦ ✦</div>
+      </div>
+    </div>
+
+    <div class="aff-card aff-mist">
+      <div class="aff-card-content">
+        <div class="aff-small-text">I attract</div>
+        <div class="aff-main-text">Abundance</div>
+        <div class="aff-star">✦ ✦ ✦</div>
+      </div>
+    </div>
+
+    <div class="aff-card aff-blush">
+      <div class="aff-card-floral"><img src="floral-wreath.jpg" alt="" /></div>
+      <div class="aff-card-content">
+        <div class="aff-small-text">I am</div>
+        <div class="aff-main-text">Enough</div>
+        <div class="aff-star">✦ ✦ ✦</div>
+      </div>
+    </div>
+
+    <div class="aff-card aff-dusty">
+      <div class="aff-card-content">
+        <div class="aff-small-text">Everything is</div>
+        <div class="aff-main-text">Working Out</div>
+        <div class="aff-star">✦ ✦ ✦</div>
+      </div>
+    </div>
+
+    <div class="aff-card aff-ivory">
+      <div class="aff-card-floral"><img src="floral-wreath.jpg" alt="" /></div>
+      <div class="aff-card-content">
+        <div class="aff-small-text">I am</div>
+        <div class="aff-main-text">Unstoppable</div>
+        <div class="aff-star">✦ ✦ ✦</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-number">6</div>
+  <div class="page-footer-brand">Bloom &amp; Plan · Vision Board Kit</div>
+</div>
+
+<!-- ============================================================
+     PAGE 7 — MANIFESTATION JOURNAL PROMPTS
+============================================================ -->
+<div class="page" id="page-manifest">
+  <div class="corner-botanical" style="top:-5mm; right:-8mm; width:48mm; opacity:0.4; transform:scaleX(-1)">
+    <img src="corner-botanical.jpg" alt="" style="width:100%;" />
+  </div>
+
+  <div class="manifest-header">
+    <div class="section-label">✦ Write It Into Existence ✦</div>
+    <div class="manifest-title">Manifestation Prompts</div>
+    <div class="gold-line" style="margin-top:2mm;"></div>
+  </div>
+
+  <p class="manifest-intro">
+    Answer these prompts slowly and with total honesty. Write as if what you desire is already here. Feel the emotions. Let yourself dream fully.
+  </p>
+
+  <div class="prompt-block">
+    <div class="prompt-q"><span class="prompt-icon">✦</span> My ideal day, one year from now, looks like…</div>
+    <div class="prompt-lines">
+      <div class="prompt-line"></div><div class="prompt-line"></div><div class="prompt-line"></div>
+    </div>
+  </div>
+
+  <div class="prompt-block">
+    <div class="prompt-q"><span class="prompt-icon">✦</span> I am calling in these specific things this year…</div>
+    <div class="prompt-lines">
+      <div class="prompt-line"></div><div class="prompt-line"></div><div class="prompt-line"></div>
+    </div>
+  </div>
+
+  <div class="prompt-block">
+    <div class="prompt-q"><span class="prompt-icon">✦</span> The version of me who has everything I want feels…</div>
+    <div class="prompt-lines">
+      <div class="prompt-line"></div><div class="prompt-line"></div>
+    </div>
+  </div>
+
+  <div class="prompt-block">
+    <div class="prompt-q"><span class="prompt-icon">✦</span> The beliefs I am releasing that no longer serve me…</div>
+    <div class="prompt-lines">
+      <div class="prompt-line"></div><div class="prompt-line"></div>
+    </div>
+  </div>
+
+  <div class="prompt-block">
+    <div class="prompt-q"><span class="prompt-icon">✦</span> I am proud of myself for…</div>
+    <div class="prompt-lines">
+      <div class="prompt-line"></div><div class="prompt-line"></div>
+    </div>
+  </div>
+
+  <div class="prompt-block">
+    <div class="prompt-q"><span class="prompt-icon">✦</span> A letter to my future self — three words: I love you…</div>
+    <div class="prompt-lines">
+      <div class="prompt-line"></div><div class="prompt-line"></div><div class="prompt-line"></div>
+    </div>
+  </div>
+
+  <div style="margin-top:5mm; background:var(--sage-pale); border-radius:8px; padding:4mm 6mm; text-align:center;">
+    <div class="section-label" style="color:var(--sage); margin-bottom:2mm;">My Manifestation Mantra</div>
+    <div class="write-line" style="max-width:140mm; margin:0 auto; border-bottom-color:var(--sage-light);"></div>
+  </div>
+
+  <div class="page-number">7</div>
+  <div class="page-footer-brand">Bloom &amp; Plan · Vision Board Kit</div>
+</div>
+
+<!-- ============================================================
+     PAGE 8 — MONTHLY ACTION PLAN
+============================================================ -->
+<div class="page" id="page-monthly">
+  <div class="monthly-header">
+    <div class="section-label">✦ Step By Step ✦</div>
+    <div class="monthly-title">Monthly <em style="font-style:italic; color:var(--rose);">Action Plan</em></div>
+    <div class="gold-line" style="margin-top:2mm;"></div>
+  </div>
+
+  <div class="month-name-row">
+    <div class="month-name-label">Month:</div>
+    <div class="month-name-input"></div>
+    <div class="month-name-label" style="margin-left:6mm;">Year:</div>
+    <div class="month-name-input" style="max-width:40mm;"></div>
+  </div>
+
+  <div class="monthly-columns">
+    <div>
+      <div class="monthly-col-title">🎯 Goals This Month</div>
+      <div class="checkbox-row"><div class="checkbox-box"></div><div class="checkbox-line"></div></div>
+      <div class="checkbox-row"><div class="checkbox-box"></div><div class="checkbox-line"></div></div>
+      <div class="checkbox-row"><div class="checkbox-box"></div><div class="checkbox-line"></div></div>
+      <div class="checkbox-row"><div class="checkbox-box"></div><div class="checkbox-line"></div></div>
+      <div class="checkbox-row"><div class="checkbox-box"></div><div class="checkbox-line"></div></div>
+
+      <div class="monthly-col-title" style="margin-top:4mm;">⚡ Top 3 Priorities</div>
+      <div class="checkbox-row"><div class="checkbox-box" style="border-color:var(--rose-light);"></div><div class="checkbox-line"></div></div>
+      <div class="checkbox-row"><div class="checkbox-box" style="border-color:var(--rose-light);"></div><div class="checkbox-line"></div></div>
+      <div class="checkbox-row"><div class="checkbox-box" style="border-color:var(--rose-light);"></div><div class="checkbox-line"></div></div>
+    </div>
+
+    <div>
+      <div class="monthly-col-title">🗓 Important Dates</div>
+      <div class="checkbox-row"><div class="checkbox-box" style="border-radius:0; border-color:transparent; border-bottom:1px solid var(--border); width:30px; font-size:6.5pt; color:var(--light); display:flex; align-items:center; justify-content:center;">dd</div><div class="checkbox-line"></div></div>
+      <div class="checkbox-row"><div class="checkbox-box" style="border-radius:0; border-color:transparent; border-bottom:1px solid var(--border); width:30px; font-size:6.5pt; color:var(--light); display:flex; align-items:center; justify-content:center;">dd</div><div class="checkbox-line"></div></div>
+      <div class="checkbox-row"><div class="checkbox-box" style="border-radius:0; border-color:transparent; border-bottom:1px solid var(--border); width:30px; font-size:6.5pt; color:var(--light); display:flex; align-items:center; justify-content:center;">dd</div><div class="checkbox-line"></div></div>
+      <div class="checkbox-row"><div class="checkbox-box" style="border-radius:0; border-color:transparent; border-bottom:1px solid var(--border); width:30px; font-size:6.5pt; color:var(--light); display:flex; align-items:center; justify-content:center;">dd</div><div class="checkbox-line"></div></div>
+      <div class="checkbox-row"><div class="checkbox-box" style="border-radius:0; border-color:transparent; border-bottom:1px solid var(--border); width:30px; font-size:6.5pt; color:var(--light); display:flex; align-items:center; justify-content:center;">dd</div><div class="checkbox-line"></div></div>
+
+      <div class="monthly-col-title" style="margin-top:4mm;">💡 Notes &amp; Ideas</div>
+      <div class="write-line"></div>
+      <div class="write-line"></div>
+      <div class="write-line"></div>
+    </div>
+  </div>
+
+  <div class="monthly-gratitude">
+    <div class="monthly-gratitude-title">🌸 This Month I Am Grateful For</div>
+    <div class="monthly-gratitude-grid">
+      <div class="grat-slot">
+        <div class="grat-num">1.</div>
+        <div class="grat-line"></div><div class="grat-line"></div>
+      </div>
+      <div class="grat-slot">
+        <div class="grat-num">2.</div>
+        <div class="grat-line"></div><div class="grat-line"></div>
+      </div>
+      <div class="grat-slot">
+        <div class="grat-num">3.</div>
+        <div class="grat-line"></div><div class="grat-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:5mm; text-align:center; background:var(--ivory); border-radius:8px; padding:4mm 8mm; border:1px solid var(--border);">
+    <div class="section-label" style="margin-bottom:2mm;">My Monthly Intention</div>
+    <div class="write-line" style="max-width:150mm; margin:0 auto;"></div>
+  </div>
+
+  <div class="page-number">8</div>
+  <div class="page-footer-brand">Bloom &amp; Plan · Vision Board Kit</div>
+</div>
+
+<!-- ============================================================
+     PAGE 9 — SELF-LOVE CHECKLIST
+============================================================ -->
+<div class="page" id="page-selflove">
+  <div class="corner-botanical" style="top:-5mm; left:-8mm; width:48mm; opacity:0.4;">
+    <img src="corner-botanical.jpg" alt="" style="width:100%;" />
+  </div>
+
+  <div class="selflove-header">
+    <div class="section-label">✦ Honour Yourself ✦</div>
+    <div class="selflove-title">Self-Love Practice</div>
+    <div class="gold-line" style="margin-top:2mm;"></div>
+  </div>
+
+  <div class="two-col-layout">
+
+    <div class="checklist-section">
+      <div class="checklist-title">☀️ Morning Self-Love Checklist</div>
+      <div class="checklist-item"><div class="check-circle"></div><div class="check-text">Drink a full glass of water upon waking</div></div>
+      <div class="checklist-item"><div class="check-circle"></div><div class="check-text">Avoid phone for the first 30 minutes</div></div>
+      <div class="checklist-item"><div class="check-circle"></div><div class="check-text">Write 3 things you're grateful for</div></div>
+      <div class="checklist-item"><div class="check-circle"></div><div class="check-text">Say your affirmation out loud</div></div>
+      <div class="checklist-item"><div class="check-circle"></div><div class="check-text">Move your body (5 min minimum)</div></div>
+      <div class="checklist-item"><div class="check-circle"></div><div class="check-text">Set an intention for the day</div></div>
+      <div class="checklist-item"><div class="check-circle"></div><div class="check-text">Nourish yourself with a good breakfast</div></div>
+
+      <div class="checklist-title" style="margin-top:4mm; color:var(--mid);">🌙 Evening Self-Love Checklist</div>
+      <div class="checklist-item"><div class="check-circle" style="border-color:var(--mid);"></div><div class="check-text">Reflect on 1 win from today</div></div>
+      <div class="checklist-item"><div class="check-circle" style="border-color:var(--mid);"></div><div class="check-text">Release what didn't go as planned</div></div>
+      <div class="checklist-item"><div class="check-circle" style="border-color:var(--mid);"></div><div class="check-text">Read or journal for 10 minutes</div></div>
+      <div class="checklist-item"><div class="check-circle" style="border-color:var(--mid);"></div><div class="check-text">Phone off or on Do Not Disturb</div></div>
+      <div class="checklist-item"><div class="check-circle" style="border-color:var(--mid);"></div><div class="check-text">Set tomorrow's top priority</div></div>
+    </div>
+
+    <div class="affirmations-section">
+      <div class="affirmations-title">💛 My Personal Affirmations</div>
+      <div style="font-size:7pt; color:var(--light); font-style:italic; font-family:var(--serif); margin-bottom:3mm;">Write affirmations that feel true for YOU</div>
+
+      <div class="affirmation-write">
+        <div class="aff-prompt">I am…</div>
+        <div class="aff-write-line"></div>
+      </div>
+      <div class="affirmation-write">
+        <div class="aff-prompt">I have…</div>
+        <div class="aff-write-line"></div>
+      </div>
+      <div class="affirmation-write">
+        <div class="aff-prompt">I attract…</div>
+        <div class="aff-write-line"></div>
+      </div>
+      <div class="affirmation-write">
+        <div class="aff-prompt">I choose…</div>
+        <div class="aff-write-line"></div>
+      </div>
+      <div class="affirmation-write">
+        <div class="aff-prompt">I deserve…</div>
+        <div class="aff-write-line"></div>
+      </div>
+      <div class="affirmation-write">
+        <div class="aff-prompt">I release…</div>
+        <div class="aff-write-line"></div>
+      </div>
+      <div class="affirmation-write">
+        <div class="aff-prompt">I trust…</div>
+        <div class="aff-write-line"></div>
+      </div>
+      <div class="affirmation-write">
+        <div class="aff-prompt">I love myself because…</div>
+        <div class="aff-write-line"></div>
+        <div class="aff-write-line"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="full-width-section">
+    <div class="full-width-title">✦ This Year I Am Saying YES To…</div>
+    <div class="reflection-lines">
+      <div class="write-line"></div><div class="write-line"></div>
+      <div class="write-line"></div><div class="write-line"></div>
+      <div class="write-line"></div><div class="write-line"></div>
+    </div>
+  </div>
+
+  <div class="page-number">9</div>
+  <div class="page-footer-brand">Bloom &amp; Plan · Vision Board Kit</div>
+</div>
+
+<!-- ============================================================
+     PAGE 10 — DECORATIVE BACK
+============================================================ -->
+<div class="page" id="page-back">
+  <div class="back-overlay-botanical">
+    <img src="floral-wreath.jpg" alt="" />
+  </div>
+
+  <div class="back-content">
+    <div class="back-stars">✦ ✦ ✦</div>
+    <div class="back-title">Bloom &amp; Plan</div>
+    <div class="back-divider"></div>
+    <div class="back-tagline">Design a life you love — one intention at a time</div>
+    <div class="back-divider"></div>
+    <div class="back-social">
+      <span>@bloomandplan</span>
+      <span>·</span>
+      <span>bloomandplan.com</span>
+    </div>
+    <div class="back-website">Digital Products · Instant Download</div>
+  </div>
+
+  <div class="back-license">© 2026 Bloom &amp; Plan · For Personal Use Only · Do Not Redistribute or Resell</div>
+</div>
+
+</body>
+</html>
