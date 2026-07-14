@@ -242,13 +242,20 @@ button {
 .nav-logo {
   display: flex;
   align-items: center;
+  gap: 8px;
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  letter-spacing: 0.02em;
 }
 
-.nav-logo-img {
-  height: 44px;
-  width: auto;
+.nav-logo-icon {
+  height: 32px;
+  width: 32px;
   object-fit: contain;
   display: block;
+  flex-shrink: 0;
 }
 
 .nav-logo span {
