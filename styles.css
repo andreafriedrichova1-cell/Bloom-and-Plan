@@ -240,11 +240,15 @@ button {
 }
 
 .nav-logo {
-  font-family: var(--font-serif);
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: var(--text-dark);
-  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo-img {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
 
 .nav-logo span {
